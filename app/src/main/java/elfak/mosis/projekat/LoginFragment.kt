@@ -14,6 +14,7 @@ class LoginFragment : Fragment() {
     private lateinit var buttonIdiNaRegistraciju: Button;
     private lateinit var buttonPrijaviSe:Button
     //private lateinit var auth: FirebaseAuth
+    // Dodato nesto
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
