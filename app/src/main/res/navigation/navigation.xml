@@ -20,6 +20,11 @@
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
     <fragment
+        android:id="@+id/profilFragment"
+        android:name="elfak.mosis.projekat.ProfilFragment"
+        android:label="fragment_profil"
+        tools:layout="@layout/fragment_profil" />
+    <fragment
         android:id="@+id/dodavanjeMestaFragment"
         android:name="elfak.mosis.projekat.DodavanjeMestaFragment"
         android:label="DodavanjeMestaFragment" />

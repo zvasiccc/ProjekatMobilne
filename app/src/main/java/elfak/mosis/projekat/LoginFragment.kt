@@ -8,12 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.Navigation
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+
 //import com.google.firebase.auth.FirebaseAuth
 
 class LoginFragment : Fragment() {
     private lateinit var buttonIdiNaRegistraciju: Button;
     private lateinit var buttonPrijaviSe:Button
-    //private lateinit var auth: FirebaseAuth
+    private lateinit var auth: FirebaseAuth
     // Dodato nesto
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,9 +33,18 @@ class LoginFragment : Fragment() {
             Navigation.findNavController(view).navigate(R.id.action_loginFragment2_to_registerFragment)
         }
         buttonPrijaviSe=view.findViewById(R.id.buttonLogin)
-        buttonPrijaviSe.setOnClickListener{
-
-        }
+//        buttonPrijaviSe.setOnClickListener {
+//            val profilFragment = ProfilFragment() // Kreiranje instance fragmenta koji želite prikazati
+//            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+//            transaction.replace(R.id.loginFragment, profilFragment) // Zamjena trenutnog fragmenta sa profilFragmentom
+//            transaction.addToBackStack(null) // Dodavanje trenutnog fragmenta na back stack, tako da se može vratiti prethodni fragment pritiskom na "Back" dugme
+//            transaction.commit()
+//        }
+//         fun signin(email:String,password:String){
+//            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener<AuthResult>() {
+//
+//            }
+//         }
 
     }
 
