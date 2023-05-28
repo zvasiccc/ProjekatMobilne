@@ -19,4 +19,8 @@
         android:name="elfak.mosis.projekat.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/dodavanjeMestaFragment"
+        android:name="elfak.mosis.projekat.DodavanjeMestaFragment"
+        android:label="DodavanjeMestaFragment" />
 </navigation>

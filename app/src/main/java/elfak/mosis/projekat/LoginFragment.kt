@@ -28,8 +28,10 @@ class LoginFragment : Fragment() {
         buttonIdiNaRegistraciju.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_loginFragment2_to_registerFragment)
         }
-       // val intent = Intent(requireContext(), LoginFragment::class.java)
-        //startActivity(intent)
+        buttonPrijaviSe=view.findViewById(R.id.buttonLogin)
+        buttonPrijaviSe.setOnClickListener{
+
+        }
 
     }
 
