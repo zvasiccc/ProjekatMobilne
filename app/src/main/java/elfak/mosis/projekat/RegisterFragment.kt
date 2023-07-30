@@ -3,6 +3,7 @@ package elfak.mosis.projekat
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -44,27 +45,51 @@ class RegisterFragment : Fragment() {
             Toast.makeText(requireContext(), "Izabrali ste sliku", Toast.LENGTH_SHORT).show()
             izaberiSliku()
         }
-        binding.buttonRegister.setOnClickListener{
+        binding.buttonRegister.setOnClickListener {
+            when {
+                TextUtils.isEmpty(binding.editTextKorisnickoIme.text.toString()) -> {
+                    Toast.makeText(
+                        requireContext(),
+                        " Niste uneli korisnicko ime",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                TextUtils.isEmpty(binding.editTextPassword.text.toString())->{
+                    Toast.makeText(requireContext(),"Niste uneli lozinku",Toast.LENGTH_SHORT).show()
+                }
 
-            val korisnickoIme=binding.editTextKorisnickoIme.text.toString()
-            val password=binding.editTextPassword.text.toString()
-            val ime = binding.editTextIme.text.toString()
-            val prezime=binding.editTextPrezime.text.toString()
-            val brojTelefona=binding.editTextBrojTelefona.text.toString()
+                else -> {
+                    val korisnickoIme = binding.editTextKorisnickoIme.text.toString()
+                    val password = binding.editTextPassword.text.toString()
+                    val ime = binding.editTextIme.text.toString()
+                    val prezime = binding.editTextPrezime.text.toString()
+                    val brojTelefona = binding.editTextBrojTelefona.text.toString()
 
-            database=FirebaseDatabase.getInstance().getReference("Users")
-            val User = User(korisnickoIme,password,ime,prezime,brojTelefona)
-            database.child(korisnickoIme).setValue(User).addOnSuccessListener {
+                    database = FirebaseDatabase.getInstance().getReference("Users")
+                    val User = User(korisnickoIme, password, ime, prezime, brojTelefona)
+                    database.child(korisnickoIme).setValue(User).addOnSuccessListener {
 
-                binding.editTextKorisnickoIme.text.clear()
-                binding.editTextPassword.text.clear()
-                binding.editTextIme.text.clear()
-                binding.editTextPrezime.text.clear()
-                binding.editTextBrojTelefona.text.clear()
-                Toast.makeText(requireContext(),"Uspesno ste se registrovali",Toast.LENGTH_SHORT).show()
+                        binding.editTextKorisnickoIme.text.clear()
+                        binding.editTextPassword.text.clear()
+                        binding.editTextIme.text.clear()
+                        binding.editTextPrezime.text.clear()
+                        binding.editTextBrojTelefona.text.clear()
+                        Toast.makeText(
+                            requireContext(),
+                            "Uspesno ste se registrovali",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
 
-            }.addOnFailureListener{
-                Toast.makeText(requireContext()," neuspesna registracija",Toast.LENGTH_SHORT).show()
+                    }.addOnFailureListener {
+                        Toast.makeText(
+                            requireContext(),
+                            " neuspesna registracija",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+                }
             }
         }
     }

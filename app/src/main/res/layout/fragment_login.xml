@@ -30,23 +30,23 @@
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:gravity="center"
-        android:hint="Ime"
+        android:hint="Korisnicko ime"
         android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/textPrezime"
+        app:layout_constraintBottom_toTopOf="@+id/textLozinka"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <EditText
-        android:id="@+id/textPrezime"
+        android:id="@+id/textLozinka"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="40dp"
         android:gravity="center"
-        android:hint="Prezime"
+        android:hint="Lozinka"
         android:padding="8dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,7 +78,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPrezime"
+        app:layout_constraintTop_toBottomOf="@+id/textLozinka"
         app:layout_constraintWidth_default="spread"
         tools:ignore="MissingConstraints" />
 

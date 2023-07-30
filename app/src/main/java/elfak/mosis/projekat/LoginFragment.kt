@@ -18,12 +18,12 @@ class LoginFragment : Fragment() {
     private lateinit var buttonIdiNaRegistraciju: Button;
     private lateinit var buttonPrijaviSe:Button
     private lateinit var auth: FirebaseAuth
+    //private lateinit var bindind:LoginFragmentBinding //u fragment login se treba ukljuci na vrh neka slovca
     // Dodato nesto
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
