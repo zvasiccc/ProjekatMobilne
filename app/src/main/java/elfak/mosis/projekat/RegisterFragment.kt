@@ -11,6 +11,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import elfak.mosis.projekat.databinding.FragmentRegisterBinding
@@ -65,30 +68,64 @@ class RegisterFragment : Fragment() {
                     val prezime = binding.editTextPrezime.text.toString()
                     val brojTelefona = binding.editTextBrojTelefona.text.toString()
 
-                    database = FirebaseDatabase.getInstance().getReference("Users")
-                    val User = User(korisnickoIme, password, ime, prezime, brojTelefona)
-                    database.child(korisnickoIme).setValue(User).addOnSuccessListener {
+//                    database = FirebaseDatabase.getInstance().getReference("Users")
+//                    val User = User(korisnickoIme, password, ime, prezime, brojTelefona)
+//                    database.child(korisnickoIme).setValue(User).addOnSuccessListener {
+//
+//                        binding.editTextKorisnickoIme.text.clear()
+//                        binding.editTextPassword.text.clear()
+//                        binding.editTextIme.text.clear()
+//                        binding.editTextPrezime.text.clear()
+//                        binding.editTextBrojTelefona.text.clear()
+//                        Toast.makeText(
+//                            requireContext(),
+//                            "Uspesno ste se registrovali",
+//                            Toast.LENGTH_SHORT
+//                        )
+//                            .show()
+//
+//                    }.addOnFailureListener {
+//                        Toast.makeText(
+//                            requireContext(),
+//                            " neuspesna registracija",
+//                            Toast.LENGTH_SHORT
+//                        )
+//                            .show()
+//                    }
 
-                        binding.editTextKorisnickoIme.text.clear()
-                        binding.editTextPassword.text.clear()
-                        binding.editTextIme.text.clear()
-                        binding.editTextPrezime.text.clear()
-                        binding.editTextBrojTelefona.text.clear()
-                        Toast.makeText(
-                            requireContext(),
-                            "Uspesno ste se registrovali",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
+                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(korisnickoIme,password).addOnCompleteListener(
+                        OnCompleteListener { task->
+                            if(task.isSuccessful){
+//                                val firebaseUser:FirebaseUser=task.result!!.user!!
+//
+//                                Toast.makeText(context," Uspesno ste se registorvali",Toast.LENGTH_SHORT).show()
+//
+//                                val intent=Intent(requireContext(),MainActivity::class.java)
+                                // Ako je registracija uspešna, dohvatite korisnički ID
+                                val firebaseUser: FirebaseUser? = task.result?.user
+                                val userID: String? = firebaseUser?.uid
+                                if(userID!=null){
+                                    val userReference:DatabaseReference=FirebaseDatabase.getInstance().getReference("Users").child(userID)
+                                    val user=User(korisnickoIme,password,ime,prezime,brojTelefona)
+                                    userReference.setValue(user).addOnSuccessListener {
+                                        Toast.makeText(requireContext(),"uspesno upisano u bazu",Toast.LENGTH_SHORT).show()
+                                        val intent=Intent(requireContext(),MainActivity::class.java)
+                                        intent.flags=Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                        intent.putExtra("user_id",firebaseUser.uid)
+                                        intent.putExtra("email_id",korisnickoIme) //preko intenta prenosimo ove infromacije u profil fragment vljd
+                                         startActivity(intent)
 
-                    }.addOnFailureListener {
-                        Toast.makeText(
-                            requireContext(),
-                            " neuspesna registracija",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                    }
+                                    }.addOnFailureListener{
+                                        Toast.makeText(requireContext(),"greska prilikom upisa u bazu",Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            }
+                            else {
+                                Toast.makeText(context,"Neuspesna registracija jer: ${task.exception?.message}",Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
+                    )
                 }
             }
         }
