@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_loginFragment2_to_profilFragment"
             app:destination="@id/profilFragment" />
+        <action
+            android:id="@+id/action_loginFragment2_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -35,4 +38,9 @@
         android:id="@+id/dodavanjeMestaFragment"
         android:name="elfak.mosis.projekat.DodavanjeMestaFragment"
         android:label="DodavanjeMestaFragment" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="elfak.mosis.projekat.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
 </navigation>

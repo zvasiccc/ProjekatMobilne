@@ -1,15 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<menu xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto">-->
+<!--    <item android:id="@+id/nav_delete"-->
+<!--        android:icon="@drawable/ic_delete"-->
+<!--        android:title="Obrisi "-->
+<!--        app:showAsAction="ifRoom"/>-->
+<!--    <item android:id="@+id/nav_add"-->
+<!--        android:icon="@drawable/ic_add"-->
+<!--        android:title="Dodaj"-->
+<!--        app:showAsAction="ifRoom"/>-->
+<!--    <item android:id="@+id/dodatnaOpcija"-->
+<!--        android:title="Dodatna opcija"-->
+<!--        app:showAsAction="never"/>-->
+<!--</menu>-->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/nav_delete"
-        android:icon="@drawable/ic_delete"
-        android:title="Obrisi "
-        app:showAsAction="ifRoom"/>
-    <item android:id="@+id/nav_add"
-        android:icon="@drawable/ic_add"
-        android:title="Dodaj"
-        app:showAsAction="ifRoom"/>
-    <item android:id="@+id/dodatnaOpcija"
-        android:title="Dodatna opcija"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="elfak.mosis.projekat.MainActivity">
+
+    <item
+        android:id="@+id/action_show_map"
+        android:orderInCategory="100"
+        android:title="@string/show_map"
         app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_new_place"
+        android:orderInCategory="100"
+        android:title="@string/new_place"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_my_places_list"
+        android:orderInCategory="100"
+        android:title="@string/my_places_list"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="100"
+        android:title="@string/about"
+        app:showAsAction="never"/>
+
 </menu>

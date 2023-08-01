@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.view.children
 import androidx.navigation.Navigation
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
@@ -25,6 +27,20 @@ class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     //private lateinit var bindind:LoginFragmentBinding //u fragment login se treba ukljuci na vrh neka slovca
     // Dodato nesto
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        for (x in menu.children) {
+            x.isVisible = false
+        }
+
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
