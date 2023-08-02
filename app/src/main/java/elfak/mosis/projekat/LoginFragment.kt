@@ -82,7 +82,7 @@ class LoginFragment : Fragment() {
                         Toast.makeText(requireContext(),"Niste uneli lozinku", Toast.LENGTH_SHORT).show()
                     }
                     else->{
-                        val korisnickoIme = binding.textKorisnickoIme.text.toString()
+                        val korisnickoIme = binding.textKorisnickoIme.text.toString() + "@gmail.com"
                         val password = binding.textLozinka.text.toString()
 
                         FirebaseAuth.getInstance().signInWithEmailAndPassword(korisnickoIme,password)

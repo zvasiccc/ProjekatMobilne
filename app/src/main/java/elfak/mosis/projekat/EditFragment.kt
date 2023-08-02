@@ -13,10 +13,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [DodavanjeMestaFragment.newInstance] factory method to
+ * Use the [EditFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class DodavanjeMestaFragment : Fragment() {
+class EditFragment : Fragment() {
 
 
     override fun onCreateView(
@@ -24,7 +24,7 @@ class DodavanjeMestaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dodavanje_mesta, container, false)
+        return inflater.inflate(R.layout.fragment_edit, container, false)
     }
 
 

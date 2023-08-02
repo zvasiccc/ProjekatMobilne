@@ -33,14 +33,19 @@
         <action
             android:id="@+id/action_profilFragment_to_loginFragment2"
             app:destination="@id/loginFragment2" />
+        <action
+            android:id="@+id/action_profilFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/dodavanjeMestaFragment"
-        android:name="elfak.mosis.projekat.DodavanjeMestaFragment"
-        android:label="DodavanjeMestaFragment" />
+        android:name="elfak.mosis.projekat.EditFragment"
+        android:label="DodavanjeMestaFragment" >
+    </fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="elfak.mosis.projekat.MapFragment"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map" >
+    </fragment>
 </navigation>
