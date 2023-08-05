@@ -21,13 +21,15 @@ import androidx.core.app.ActivityCompat
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import elfak.mosis.projekat.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var loginButton: Button
-    //private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController:NavController
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -39,8 +41,10 @@ class MainActivity : AppCompatActivity() {
         //setSupportActionBar(binding.toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        // appBarConfiguration = AppBarConfiguration(navController.graph)
-        // setupActionBarWithNavController(navController, appBarConfiguration)
+         appBarConfiguration = AppBarConfiguration(navController.graph)
+         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        //mrckano pre nekad
 //        ActivityCompat.requestPermissions(
 //            this,
 //            arrayOf(
@@ -48,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 //                Manifest.permission.ACCESS_FINE_LOCATION
 //            ),
 //            0
-//        )
+//        ) ov
             //setContentView(R.layout.activity_main)
 //        loginButton=findViewById(R.id.buttonLogin)
 //        loginButton.setOnClickListener{
@@ -58,6 +62,7 @@ class MainActivity : AppCompatActivity() {
 //            }
  //       }
         //isto se uradi za stop dugme
+        //kraj mrckanog
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -76,8 +81,19 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.action_profilFragment_to_mapFragment)
                 }
             }
-            R.id.action_new_place->Toast.makeText(this,"Dodajem novo mesto",Toast.LENGTH_SHORT).show()
-            R.id.action_my_places_list->Toast.makeText(this,"Prikazujem listu mesta",Toast.LENGTH_SHORT).show()
+            R.id.action_new_place->
+            {
+                Toast.makeText(this,"Dodajem novo mesto",Toast.LENGTH_SHORT).show()
+                if(navController.currentDestination?.id==R.id.profilFragment) {
+                    navController.navigate((R.id.action_profilFragment_to_EditFragment))
+                }
+            }
+            R.id.action_my_places_list-> {
+                Toast.makeText(this, "Prikazujem listu mesta", Toast.LENGTH_SHORT).show()
+                if(navController.currentDestination?.id == R.id.profilFragment) {
+                    navController.navigate(R.id.action_profilFragment_to_listaMestaFragment)
+                }
+            }
             R.id.action_about->{
                 val i:Intent=Intent(this,About::class.java)
                 startActivity(i)

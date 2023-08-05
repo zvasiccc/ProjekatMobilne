@@ -1,31 +1,80 @@
 package elfak.mosis.projekat
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import elfak.mosis.projekat.databinding.FragmentEditBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [EditFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class EditFragment : Fragment() {
 
+    private val restaurantsViewModel: RestaurantsViewModel by activityViewModels()
+    private lateinit var binding: FragmentEditBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit, container, false)
+        binding = FragmentEditBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        val editName: EditText = binding.editTextImeMesta
+        val editDesc: EditText = binding.editTextOpisMesta
+        val editLongitude: EditText = binding.editTextLongituda
+        val editLatitude: EditText = binding.editTextLatituda
+
+        binding.buttonDodajMesto.isEnabled = false
+
+        editName.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                binding.buttonDodajMesto.isEnabled = (editName.text.length>0)
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // No implementation needed
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // No implementation needed
+            }
+        })
+
+        if (restaurantsViewModel.selectedRestaurant != null) {
+            editName.setText(restaurantsViewModel.selectedRestaurant!!.ime)
+            editDesc.setText(restaurantsViewModel.selectedRestaurant!!.opis)
+            editLongitude.setText(restaurantsViewModel.selectedRestaurant!!.longituda)
+            editLatitude.setText(restaurantsViewModel.selectedRestaurant!!.latituda)
+        }
+
+        binding.buttonDodajMesto.setOnClickListener {
+            val name = editName.text.toString()
+            val opis = editDesc.text.toString()
+            val longituda = editLongitude.text.toString()
+            val latituda = editLatitude.text.toString()
+            val restoran: Restaurant = Restaurant(name, opis, longituda, latituda)
+            restaurantsViewModel.sviRestorani.add(restoran)
+            restaurantsViewModel.adapter?.notifyDataSetChanged()
+            Toast.makeText(requireContext(), "Uspesno ste dodali novo mesto", Toast.LENGTH_SHORT).show()
+            editName.setText("")
+            editDesc.setText("")
+            editLongitude.setText("")
+            editLatitude.setText("")
+        }
+
+        binding.buttonOtkazi.setOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
 }

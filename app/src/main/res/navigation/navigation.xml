@@ -36,16 +36,44 @@
         <action
             android:id="@+id/action_profilFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_profilFragment_to_listaMestaFragment"
+            app:destination="@id/listaMestaFragment" />
+        <action
+            android:id="@+id/action_profilFragment_to_EditFragment"
+            app:destination="@id/EditFragment" />
     </fragment>
     <fragment
-        android:id="@+id/dodavanjeMestaFragment"
+        android:id="@+id/EditFragment"
         android:name="elfak.mosis.projekat.EditFragment"
-        android:label="DodavanjeMestaFragment" >
-    </fragment>
+        android:label="EditFragment"></fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="elfak.mosis.projekat.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_mapFragment_to_EditFragment"
+            app:destination="@id/EditFragment" />
+        <action
+            android:id="@+id/action_mapFragment_to_viewFragment"
+            app:destination="@id/viewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewFragment"
+        android:name="elfak.mosis.projekat.ViewFragment"
+        android:label="View my place "
+        tools:layout="@layout/fragment_view" />
+    <fragment
+        android:id="@+id/listaMestaFragment"
+        android:name="elfak.mosis.projekat.ListaMestaFragment"
+        android:label="fragment_lista_mesta"
+        tools:layout="@layout/fragment_lista_mesta" >
+        <action
+            android:id="@+id/action_listaMestaFragment_to_EditFragment"
+            app:destination="@id/EditFragment" />
+        <action
+            android:id="@+id/action_listaMestaFragment_to_viewFragment"
+            app:destination="@id/viewFragment" />
     </fragment>
 </navigation>
