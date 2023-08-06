@@ -11,11 +11,15 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import elfak.mosis.projekat.databinding.FragmentEditBinding
 
 class EditFragment : Fragment() {
 
     private val restaurantsViewModel: RestaurantsViewModel by activityViewModels()
+    private val profileViewModel:ProfileViewModel by activityViewModels()
     private lateinit var binding: FragmentEditBinding
 
     override fun onCreateView(
@@ -29,7 +33,7 @@ class EditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val trenutnoPrijavljeniKorisnik=FirebaseAuth.getInstance().currentUser
         val editName: EditText = binding.editTextImeMesta
         val editDesc: EditText = binding.editTextOpisMesta
         val editLongitude: EditText = binding.editTextLongituda
@@ -66,7 +70,29 @@ class EditFragment : Fragment() {
             val restoran: Restaurant = Restaurant(name, opis, longituda, latituda)
             restaurantsViewModel.sviRestorani.add(restoran)
             restaurantsViewModel.adapter?.notifyDataSetChanged()
-            Toast.makeText(requireContext(), "Uspesno ste dodali novo mesto", Toast.LENGTH_SHORT).show()
+            profileViewModel.bodovi = profileViewModel.bodovi.plus(10)
+            trenutnoPrijavljeniKorisnik?.let{user->
+                val database:FirebaseDatabase=FirebaseDatabase.getInstance()
+               val userRef:DatabaseReference=database.getReference("users")
+                userRef.child("bodovi").setValue(profileViewModel.bodovi)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(
+                                requireContext(),
+                                "Uspesno ste dodali novo mesto i azurirali bodove",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                "Doslo je do greske ",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                    }
+            }
+
             editName.setText("")
             editDesc.setText("")
             editLongitude.setText("")

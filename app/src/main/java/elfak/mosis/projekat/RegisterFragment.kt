@@ -26,7 +26,6 @@ class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var database:DatabaseReference
 
-
     companion object{
         val IMAGE_REQUEST_CODE=100
     }
@@ -34,16 +33,13 @@ class RegisterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        // ovo radi return inflater.inflate(R.layout.fragment_register, container, false)
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //buttonIzaberiteSliku = view.findViewById(R.id.buttonIzaberiteSliku)
-        //imageView =view.findViewById(R.id.slikaKorisnika)
+
         binding.buttonIzaberiteSliku.setOnClickListener {
             Toast.makeText(requireContext(), "Izabrali ste sliku", Toast.LENGTH_SHORT).show()
             izaberiSliku()
@@ -53,14 +49,13 @@ class RegisterFragment : Fragment() {
                 TextUtils.isEmpty(binding.editTextKorisnickoIme.text.toString()) -> {
                     Toast.makeText(
                         requireContext(),
-                        " Niste uneli korisnicko ime",
+                        "Niste uneli korisnicko ime",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
                 TextUtils.isEmpty(binding.editTextPassword.text.toString())->{
                     Toast.makeText(requireContext(),"Niste uneli lozinku",Toast.LENGTH_SHORT).show()
                 }
-
                 else -> {
                     val korisnickoIme = binding.editTextKorisnickoIme.text.toString()
                     val password = binding.editTextPassword.text.toString()
@@ -68,80 +63,45 @@ class RegisterFragment : Fragment() {
                     val prezime = binding.editTextPrezime.text.toString()
                     val brojTelefona = binding.editTextBrojTelefona.text.toString()
 
-//                    database = FirebaseDatabase.getInstance().getReference("Users")
-//                    val User = User(korisnickoIme, password, ime, prezime, brojTelefona)
-//                    database.child(korisnickoIme).setValue(User).addOnSuccessListener {
-//
-//                        binding.editTextKorisnickoIme.text.clear()
-//                        binding.editTextPassword.text.clear()
-//                        binding.editTextIme.text.clear()
-//                        binding.editTextPrezime.text.clear()
-//                        binding.editTextBrojTelefona.text.clear()
-//                        Toast.makeText(
-//                            requireContext(),
-//                            "Uspesno ste se registrovali",
-//                            Toast.LENGTH_SHORT
-//                        )
-//                            .show()
-//
-//                    }.addOnFailureListener {
-//                        Toast.makeText(
-//                            requireContext(),
-//                            " neuspesna registracija",
-//                            Toast.LENGTH_SHORT
-//                        )
-//                            .show()
-//                    }
-
                     FirebaseAuth.getInstance().createUserWithEmailAndPassword(korisnickoIme,password).addOnCompleteListener(
                         OnCompleteListener { task->
                             if(task.isSuccessful){
-//                                val firebaseUser:FirebaseUser=task.result!!.user!!
-//
-//                                Toast.makeText(context," Uspesno ste se registorvali",Toast.LENGTH_SHORT).show()
-//
-//                                val intent=Intent(requireContext(),MainActivity::class.java)
-                                // Ako je registracija uspešna, dohvatite korisnički ID
                                 val firebaseUser: FirebaseUser? = task.result?.user
                                 val userID: String? = firebaseUser?.uid
-                                if(userID!=null){
-                                    val userReference:DatabaseReference=FirebaseDatabase.getInstance().getReference("Users").child(userID)
-                                    val user=User(korisnickoIme,password,ime,prezime,brojTelefona)
+                                if (userID != null) {
+                                    val userReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userID)
+                                    val user = User(korisnickoIme, password, ime, prezime, brojTelefona)
                                     userReference.setValue(user).addOnSuccessListener {
-                                        Toast.makeText(requireContext(),"uspesno upisano u bazu",Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(requireContext(), "Uspesno ste se registrovali", Toast.LENGTH_SHORT).show()
                                         val intent=Intent(requireContext(),MainActivity::class.java)
                                         intent.flags=Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                         intent.putExtra("user_id",firebaseUser.uid)
-                                        intent.putExtra("email_id",korisnickoIme) //preko intenta prenosimo ove infromacije u profil fragment vljd
-                                         startActivity(intent)
-
-                                    }.addOnFailureListener{
-                                        Toast.makeText(requireContext(),"greska prilikom upisa u bazu",Toast.LENGTH_SHORT).show()
+                                        intent.putExtra("email_id",korisnickoIme)
+                                        startActivity(intent)
+                                    }.addOnFailureListener {
+                                        Toast.makeText(requireContext(), "Greska prilikom upisa u bazu", Toast.LENGTH_SHORT).show()
                                     }
                                 }
-                            }
-                            else {
-                                Toast.makeText(context,"Neuspesna registracija jer: ${task.exception?.message}",Toast.LENGTH_SHORT).show()
+                            } else {
+                                Toast.makeText(context, "Neuspesna registracija jer: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                             }
                         }
-
                     )
                 }
             }
         }
     }
 
-
-    private fun izaberiSliku(){
-        val intent =Intent(Intent.ACTION_PICK)
-        intent.type="image/*"
+    private fun izaberiSliku() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
         startActivityForResult(intent, IMAGE_REQUEST_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode== IMAGE_REQUEST_CODE && resultCode==RESULT_OK){
-         imageView.setImageURI(data?.data)
+        if (requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK) {
+            imageView.setImageURI(data?.data)
         }
     }
 }
