@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import elfak.mosis.projekat.databinding.FragmentProfilBinding
 import elfak.mosis.projekat.databinding.FragmentViewBinding
 
@@ -23,9 +26,26 @@ class ProfilFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            binding.textViewBodovi.text=profileViewModel.bodovi.toString()
+        val trenutnoPrijavljeniKorisnik= FirebaseAuth.getInstance().currentUser
+        trenutnoPrijavljeniKorisnik?.let { user ->
+            val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+            val userRef: DatabaseReference = database.getReference("Users").child(user.uid)
+            userRef.child("bodovi").addListenerForSingleValueEvent(object :ValueEventListener{
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val brojBodova=dataSnapshot.value as? Long ?:0
+                    binding.textViewBodovi.text=brojBodova.toString()
+                }
 
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Doslo je do greske pri dohvatanju bodova",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            })
+        }
         super.onViewCreated(view, savedInstanceState)
-
     }
 }

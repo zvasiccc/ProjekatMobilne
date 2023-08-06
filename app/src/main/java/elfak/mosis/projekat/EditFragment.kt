@@ -70,16 +70,18 @@ class EditFragment : Fragment() {
             val restoran: Restaurant = Restaurant(name, opis, longituda, latituda)
             restaurantsViewModel.sviRestorani.add(restoran)
             restaurantsViewModel.adapter?.notifyDataSetChanged()
-            profileViewModel.bodovi = profileViewModel.bodovi.plus(10)
+            //profileViewModel.bodovi = profileViewModel.bodovi.plus(10)
             trenutnoPrijavljeniKorisnik?.let{user->
                 val database:FirebaseDatabase=FirebaseDatabase.getInstance()
-               val userRef:DatabaseReference=database.getReference("users")
-                userRef.child("bodovi").setValue(profileViewModel.bodovi)
-                    .addOnCompleteListener { task ->
+               val userRef:DatabaseReference=database.getReference("Users").child(user.uid)
+                userRef.child("bodovi").get().addOnCompleteListener { task ->
                         if (task.isSuccessful) {
+                            val trenutniBodovi=task.result?.value as? Long?:0
+                            val noviBodovi=trenutniBodovi+10
+                            userRef.child("bodovi").setValue(noviBodovi)
                             Toast.makeText(
                                 requireContext(),
-                                "Uspesno ste dodali novo mesto i azurirali bodove",
+                                "Uspesno ste dodali novo mesto i azurirali bodove na $noviBodovi",
                                 Toast.LENGTH_SHORT
                             ).show()
                         } else {
