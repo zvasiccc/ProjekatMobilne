@@ -75,5 +75,16 @@
         <action
             android:id="@+id/action_listaMestaFragment_to_viewFragment"
             app:destination="@id/viewFragment" />
+        <action
+            android:id="@+id/action_listaMestaFragment_self"
+            app:destination="@id/listaMestaFragment" />
+        <action
+            android:id="@+id/action_listaMestaFragment_to_oceniRestoranFragment"
+            app:destination="@id/oceniRestoranFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/oceniRestoranFragment"
+        android:name="elfak.mosis.projekat.OceniRestoranFragment"
+        android:label="fragment_oceni_restoran"
+        tools:layout="@layout/fragment_oceni_restoran" />
 </navigation>

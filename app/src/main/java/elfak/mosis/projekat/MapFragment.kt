@@ -7,17 +7,20 @@ import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 
 
 class MapFragment : Fragment() {
     lateinit var map:MapView
+    private val restaurantsViewModel: RestaurantsViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -52,7 +55,15 @@ class MapFragment : Fragment() {
         map.controller.setZoom(15.0)
         val startPoint=GeoPoint(43.3209,21.8958)
         map.controller.setCenter(startPoint)
+
+        for(res in restaurantsViewModel.sviRestorani) {
+            var marker = Marker(map)
+            marker?.position = GeoPoint(res.latituda.toDouble(), res.longituda.toDouble())
+            map.overlays.add(marker)
+        }
+        map.invalidate()
     }
+
     private fun setMyLocationOverlay(){
         var myLocationOverlay=MyLocationNewOverlay(GpsMyLocationProvider(activity),map)
         myLocationOverlay.enableMyLocation()

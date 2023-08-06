@@ -30,7 +30,6 @@ class EditFragment : Fragment() {
         binding = FragmentEditBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val trenutnoPrijavljeniKorisnik=FirebaseAuth.getInstance().currentUser
@@ -38,7 +37,6 @@ class EditFragment : Fragment() {
         val editDesc: EditText = binding.editTextOpisMesta
         val editLongitude: EditText = binding.editTextLongituda
         val editLatitude: EditText = binding.editTextLatituda
-
         binding.buttonDodajMesto.isEnabled = false
 
         editName.addTextChangedListener(object : TextWatcher {
@@ -67,21 +65,49 @@ class EditFragment : Fragment() {
             val opis = editDesc.text.toString()
             val longituda = editLongitude.text.toString()
             val latituda = editLatitude.text.toString()
-            val restoran: Restaurant = Restaurant(name, opis, longituda, latituda)
-            restaurantsViewModel.sviRestorani.add(restoran)
+            val noviRestoran: Restaurant = Restaurant(name, opis, longituda, latituda)
+            restaurantsViewModel.sviRestorani.add(noviRestoran)
             restaurantsViewModel.adapter?.notifyDataSetChanged()
             //profileViewModel.bodovi = profileViewModel.bodovi.plus(10)
             trenutnoPrijavljeniKorisnik?.let{user->
                 val database:FirebaseDatabase=FirebaseDatabase.getInstance()
                val userRef:DatabaseReference=database.getReference("Users").child(user.uid)
-                userRef.child("bodovi").get().addOnCompleteListener { task ->
+                var restaurantRef:DatabaseReference=database.getReference("Restaurants")
+                if(restaurantsViewModel.selectedRestaurant != null)
+                {
+                    restaurantRef = restaurantRef.child(restaurantsViewModel.selectedRestaurant!!.key)
+                    noviRestoran.key = restaurantsViewModel.selectedRestaurant!!.key
+                }
+                else {
+                    restaurantRef = restaurantRef.push()//doda se prazan objekat
+                    noviRestoran.key = restaurantRef.key!!//na nas malopre napravljeni restoran dodamo taj kljuc
+                }
+                restaurantRef.setValue(noviRestoran)
+                        .addOnSuccessListener {
+                            Toast.makeText(
+                                requireContext(),
+                                "Uspesno ste dodali restoran u bazu",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            restaurantsViewModel.selectedRestaurant=null
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(
+                                requireContext(),
+                                "Niste dodali restoran u bazu",
+                Toast.LENGTH_SHORT
+                ).show()
+            }
+
+
+            userRef.child("bodovi").get().addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             val trenutniBodovi=task.result?.value as? Long?:0
                             val noviBodovi=trenutniBodovi+10
                             userRef.child("bodovi").setValue(noviBodovi)
                             Toast.makeText(
                                 requireContext(),
-                                "Uspesno ste dodali novo mesto i azurirali bodove na $noviBodovi",
+                                "Uspesno ste azurirali bodove na $noviBodovi",
                                 Toast.LENGTH_SHORT
                             ).show()
                         } else {
@@ -102,7 +128,9 @@ class EditFragment : Fragment() {
         }
 
         binding.buttonOtkazi.setOnClickListener {
+            restaurantsViewModel.selectedRestaurant=null
             findNavController().popBackStack()
+
         }
     }
 }

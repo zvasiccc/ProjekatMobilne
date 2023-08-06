@@ -16,6 +16,7 @@ import elfak.mosis.projekat.databinding.FragmentViewBinding
 class ProfilFragment : Fragment() {
     private lateinit var binding:FragmentProfilBinding
     private val profileViewModel: ProfileViewModel by activityViewModels()
+    private val restaurantsViewModel:RestaurantsViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,6 +47,7 @@ class ProfilFragment : Fragment() {
 
             })
         }
+        restaurantsViewModel.selectedRestaurant = null
         super.onViewCreated(view, savedInstanceState)
     }
 }
