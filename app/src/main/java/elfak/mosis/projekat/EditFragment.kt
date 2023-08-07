@@ -66,6 +66,7 @@ class EditFragment : Fragment() {
             val longituda = editLongitude.text.toString()
             val latituda = editLatitude.text.toString()
             val noviRestoran: Restaurant = Restaurant(name, opis, longituda, latituda)
+            noviRestoran.idAutora=trenutnoPrijavljeniKorisnik!!.uid
             restaurantsViewModel.sviRestorani.add(noviRestoran)
             restaurantsViewModel.adapter?.notifyDataSetChanged()
             //profileViewModel.bodovi = profileViewModel.bodovi.plus(10)

@@ -9,7 +9,7 @@ data class Restaurant(
     var key:String=""
     var prosecnaOcena:Int=0
     var brojOcena:Int=0
-
+    var idAutora:String=""
     override fun toString(): String {
         return ime
     }

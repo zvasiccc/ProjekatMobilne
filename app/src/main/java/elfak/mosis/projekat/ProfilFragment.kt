@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import elfak.mosis.projekat.databinding.FragmentProfilBinding
@@ -48,6 +49,13 @@ class ProfilFragment : Fragment() {
             })
         }
         restaurantsViewModel.selectedRestaurant = null
+
+        binding.buttonFiltrirajMesta.setOnClickListener{
+            findNavController().navigate(R.id.action_profilFragment_to_filtriranjeFragment)
+        }
+
+
+
         super.onViewCreated(view, savedInstanceState)
     }
 }

@@ -31,6 +31,7 @@ class ViewFragment : Fragment() {
         if (restaurantsViewModel.selectedRestaurant != null) {
             binding.textViewIme.text = restaurantsViewModel.selectedRestaurant!!.ime
             binding.textViewOpis.text = restaurantsViewModel.selectedRestaurant!!.opis
+            binding.textViewProsecnaOcena.text=restaurantsViewModel.selectedRestaurant!!.prosecnaOcena.toString()
 
         }
         super.onViewCreated(view, savedInstanceState)

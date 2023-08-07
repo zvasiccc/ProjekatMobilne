@@ -6,4 +6,7 @@ data class User(val korisnickoIme:String?=null,
                 val prezime:String?=null,
                 val brojTelefona:String?=null,
                 val bodovi:Int=0)
+{
+
+}
 

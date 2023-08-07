@@ -11,9 +11,11 @@ import com.google.firebase.database.*
 class RestaurantsViewModel:ViewModel() {
     var selectedRestaurant: Restaurant? = null
     var sviRestorani: ArrayList<Restaurant> =ArrayList<Restaurant>()
+    var filtiraniRestorani:ArrayList<Restaurant> =ArrayList<Restaurant>()
     var adapter: ArrayAdapter<Restaurant>? = null
     val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     val restaurantRef: DatabaseReference = database.getReference("Restaurants")
+    var filterAdapter: ArrayAdapter<Restaurant>? = null
     init {
         loadRestaurantsFromFirebase()
     }

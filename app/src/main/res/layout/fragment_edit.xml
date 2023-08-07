@@ -39,7 +39,7 @@
         android:id="@+id/editTextOpisMesta"
         android:layout_width="411dp"
         android:layout_height="96dp"
-        android:layout_marginBottom="112dp"
+        android:layout_marginBottom="68dp"
         android:ems="10"
         app:layout_constraintBottom_toTopOf="@+id/editTextLongituda"
         app:layout_constraintWidth_percent="1.0"
@@ -74,20 +74,22 @@
         android:id="@+id/textViewLongituda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="88dp"
         android:text="Longituda"
         app:layout_constraintBottom_toTopOf="@+id/textViewLatituda"
         app:layout_constraintEnd_toStartOf="@+id/editTextLongituda"
-        app:layout_constraintHorizontal_bias="0.33"
+        app:layout_constraintHorizontal_bias="0.232"
         app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@android:color/black"
         tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/editTextLongituda"
-        android:layout_width="193dp"
-        android:layout_height="19dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="48dp"
+        android:layout_width="211dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="56dp"
+        android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/editTextLatituda"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="MissingConstraints" />
@@ -102,17 +104,18 @@
         app:layout_constraintEnd_toStartOf="@+id/editTextLatituda"
         app:layout_constraintHorizontal_bias="0.286"
         app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@android:color/black"
         tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/editTextLatituda"
-        android:layout_width="202dp"
-        android:layout_height="24dp"
-
+        android:layout_width="214dp"
+        android:layout_height="49dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonSet"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@android:color/black"
         tools:ignore="MissingConstraints" />
 
     <Button

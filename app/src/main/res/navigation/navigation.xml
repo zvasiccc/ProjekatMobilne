@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_profilFragment_to_EditFragment"
             app:destination="@id/EditFragment" />
+        <action
+            android:id="@+id/action_profilFragment_to_filtriranjeFragment"
+            app:destination="@id/filtriranjeFragment" />
     </fragment>
     <fragment
         android:id="@+id/EditFragment"
@@ -87,4 +90,28 @@
         android:name="elfak.mosis.projekat.OceniRestoranFragment"
         android:label="fragment_oceni_restoran"
         tools:layout="@layout/fragment_oceni_restoran" />
+    <fragment
+        android:id="@+id/filtriranjeFragment"
+        android:name="elfak.mosis.projekat.FiltriranjeFragment"
+        android:label="fragment_filtriranje"
+        tools:layout="@layout/fragment_filtriranje" >
+        <action
+            android:id="@+id/action_filtriranjeFragment_to_profilFragment"
+            app:destination="@id/profilFragment" />
+        <action
+            android:id="@+id/action_filtriranjeFragment_to_listaFiltriranihRestoranaFragment"
+            app:destination="@id/listaFiltriranihRestoranaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listaFiltriranihRestoranaFragment"
+        android:name="elfak.mosis.projekat.ListaFiltriranihRestoranaFragment"
+        android:label="fragment_lista_filtriranih_restorana"
+        tools:layout="@layout/fragment_lista_filtriranih_restorana" >
+        <action
+            android:id="@+id/action_listaFiltriranihRestoranaFragment_to_profilFragment"
+            app:destination="@id/profilFragment" />
+        <action
+            android:id="@+id/action_listaFiltriranihRestoranaFragment_to_viewFragment"
+            app:destination="@id/viewFragment" />
+    </fragment>
 </navigation>
