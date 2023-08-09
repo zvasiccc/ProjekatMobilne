@@ -56,6 +56,9 @@ class ProfilFragment : Fragment() {
                     ).show()
                 }
             })
+
+
+
             userRef.child("bodovi").addListenerForSingleValueEvent(object :ValueEventListener{
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val brojBodova=dataSnapshot.value as? Long ?:0

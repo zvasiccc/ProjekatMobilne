@@ -57,7 +57,14 @@
         tools:layout="@layout/fragment_map" >
         <action
             android:id="@+id/action_mapFragment_to_EditFragment"
-            app:destination="@id/EditFragment" />
+            app:destination="@id/EditFragment" >
+        <argument
+            android:name="latituda"
+            app:argType="float" />
+        <argument
+            android:name="longituda"
+            app:argType="float" />
+        </action>
         <action
             android:id="@+id/action_mapFragment_to_viewFragment"
             app:destination="@id/viewFragment" />

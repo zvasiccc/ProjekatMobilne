@@ -4,12 +4,16 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
@@ -20,7 +24,9 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 
 class MapFragment : Fragment() {
     lateinit var map:MapView
+    private lateinit var fabButton:FloatingActionButton
     private val restaurantsViewModel: RestaurantsViewModel by activityViewModels()
+    private val koordinateViewModel: KoordinateViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -59,14 +65,41 @@ class MapFragment : Fragment() {
         for(res in restaurantsViewModel.sviRestorani) {
             var marker = Marker(map)
             marker?.position = GeoPoint(res.latituda.toDouble(), res.longituda.toDouble())
+            marker.icon=resources.getDrawable(org.osmdroid.library.R.drawable.marker_default_focused_base)
             map.overlays.add(marker)
         }
+        fabButton=requireView().findViewById<FloatingActionButton>(R.id.fab)
+        fabButton.setOnClickListener{
+            val myLocationOverlay=map.overlays.firstOrNull{ it is MyLocationNewOverlay} as MyLocationNewOverlay?
+            myLocationOverlay?.run{
+                val trenutnaLokacija=myLocation
+                val latituda=trenutnaLokacija.latitude
+                val longituda=trenutnaLokacija.longitude
+                Toast.makeText(requireContext(),"latituda=$latituda a longituda=$longituda",Toast.LENGTH_LONG).show()
+                //val bundle=Bundle()
+                //bundle.putDouble("latituda",latituda)
+                //bundle.putDouble("longituda",longituda)
+                //val akcija = R.id.action_mapFragment_to_EditFragment(latituda,longituda)
+                //akcija.arguments=bundle
+                koordinateViewModel.latituda=latituda
+                koordinateViewModel.longituda=longituda
+                findNavController().navigate(R.id.action_mapFragment_to_EditFragment)
+
+            }
+        }
         map.invalidate()
+
     }
 
     private fun setMyLocationOverlay(){
         var myLocationOverlay=MyLocationNewOverlay(GpsMyLocationProvider(activity),map)
         myLocationOverlay.enableMyLocation()
+        myLocationOverlay.enableFollowLocation()
+        myLocationOverlay.isDrawAccuracyEnabled=true //crta krug oko markeram
+        val redMarkerDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.red_marker)
+        val redMarkerBitmap = redMarkerDrawable?.toBitmap()
+        myLocationOverlay.setPersonIcon(redMarkerBitmap)
+
         map.overlays.add(myLocationOverlay)
     }
     private val requestPermissionLauncher=

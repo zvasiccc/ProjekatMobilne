@@ -19,7 +19,7 @@ import elfak.mosis.projekat.databinding.FragmentEditBinding
 class EditFragment : Fragment() {
 
     private val restaurantsViewModel: RestaurantsViewModel by activityViewModels()
-    private val profileViewModel:ProfileViewModel by activityViewModels()
+    private val koordinateViewModel: KoordinateViewModel by activityViewModels()
     private lateinit var binding: FragmentEditBinding
 
     override fun onCreateView(
@@ -32,16 +32,39 @@ class EditFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //val latituda = arguments?.getDouble("latituda")
+        //val longituda = arguments?.getDouble("longituda")
+
+
         val trenutnoPrijavljeniKorisnik=FirebaseAuth.getInstance().currentUser
         val editName: EditText = binding.editTextImeMesta
         val editDesc: EditText = binding.editTextOpisMesta
         val editLongitude: EditText = binding.editTextLongituda
         val editLatitude: EditText = binding.editTextLatituda
+        if(koordinateViewModel.latituda!=null && koordinateViewModel.longituda!=null){
+            editLatitude.setText(koordinateViewModel.latituda.toString())
+            editLongitude.setText(koordinateViewModel.longituda.toString())
+            editLongitude.isEnabled=false
+            editLatitude.isEnabled=false
+        }
         binding.buttonDodajMesto.isEnabled = false
 
         editName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 binding.buttonDodajMesto.isEnabled = (editName.text.length>0)
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // No implementation needed
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // No implementation needed
+            }
+        })
+        editDesc.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                binding.buttonDodajMesto.isEnabled = (editDesc.text.length>0)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -91,6 +114,8 @@ class EditFragment : Fragment() {
                                 Toast.LENGTH_LONG
                             ).show()
                             restaurantsViewModel.selectedRestaurant=null
+                            koordinateViewModel.latituda=null
+                            koordinateViewModel.longituda=null
                         }
                         .addOnFailureListener {
                             Toast.makeText(
@@ -130,6 +155,8 @@ class EditFragment : Fragment() {
 
         binding.buttonOtkazi.setOnClickListener {
             restaurantsViewModel.selectedRestaurant=null
+            koordinateViewModel.latituda=null
+            koordinateViewModel.longituda=null
             findNavController().popBackStack()
 
         }

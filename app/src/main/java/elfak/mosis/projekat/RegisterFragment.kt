@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.FileProvider
 import androidx.fragment.app.activityViewModels
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
@@ -23,10 +24,10 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import elfak.mosis.projekat.databinding.FragmentRegisterBinding
-import elfak.mosis.projekat.R.id.buttonIzaberiteSliku
+import java.io.File
+import java.io.FileOutputStream
 
 class RegisterFragment : Fragment() {
 
@@ -36,7 +37,7 @@ class RegisterFragment : Fragment() {
     private lateinit var imageView: ImageView
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var database: DatabaseReference
-    private var uri: Uri? = null
+    private var url: Uri? = null
 
     companion object {
         const val IMAGE_REQUEST_CODE = 100
@@ -89,65 +90,33 @@ class RegisterFragment : Fragment() {
                                     val firebaseUser: FirebaseUser? = task.result?.user
                                     val userID: String? = firebaseUser?.uid
                                     if (userID != null) {
-                                        val userReference: DatabaseReference =
-                                            FirebaseDatabase.getInstance().getReference("Users")
-                                                .child(userID)
-                                        val imageReferencee =
-                                            storageReference.getReference("Slike")
-                                                .child(System.currentTimeMillis().toString())
-                                        imageReferencee.putFile(uri!!)
+                                        val userReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userID)
+                                        val imageReferencee = storageReference.getReference("Slike").child(System.currentTimeMillis().toString())
+                                        imageReferencee.putFile(url!!)
                                             .addOnCompleteListener { imageUploadTask ->
                                                 if (imageUploadTask.isSuccessful) {
                                                     imageReferencee.downloadUrl.addOnSuccessListener { imageUri ->
                                                         val imageUrl = imageUri.toString()
                                                         val user = User(ime,prezime,brojTelefona,imageUrl)
-
                                                         userReference.setValue(user)
                                                             .addOnSuccessListener {
-                                                                Toast.makeText(
-                                                                    requireContext(),
-                                                                    "Uspesno ste se registrovali",
-                                                                    Toast.LENGTH_SHORT
-                                                                ).show()
-                                                                val intent =
-                                                                    Intent(
-                                                                        requireContext(),
-                                                                        MainActivity::class.java
-                                                                    )
-                                                                intent.flags =
-                                                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                                                intent.putExtra(
-                                                                    "user_id",
-                                                                    firebaseUser.uid
-                                                                )
-                                                                intent.putExtra(
-                                                                    "email_id",
-                                                                    korisnickoIme
-                                                                )
+                                                                Toast.makeText(requireContext(), "Uspesno ste se registrovali", Toast.LENGTH_SHORT).show()
+                                                                val intent = Intent(requireContext(), MainActivity::class.java)
+                                                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                                                intent.putExtra("user_id", firebaseUser.uid)
+                                                                intent.putExtra("email_id", korisnickoIme)
                                                                 startActivity(intent)
                                                             }.addOnFailureListener {
-                                                                Toast.makeText(
-                                                                    requireContext(),
-                                                                    "Greska prilikom upisa u bazu",
-                                                                    Toast.LENGTH_SHORT
-                                                                ).show()
+                                                                Toast.makeText(requireContext(), "Greska prilikom upisa u bazu", Toast.LENGTH_SHORT).show()
                                                             }
                                                     }
                                                 } else {
-                                                    Toast.makeText(
-                                                        requireContext(),
-                                                        "Greska prilikom upload-a slike",
-                                                        Toast.LENGTH_SHORT
-                                                    ).show()
+                                                    Toast.makeText(requireContext(), "Greska prilikom upload-a slike", Toast.LENGTH_SHORT).show()
                                                 }
                                             }
                                     }
                                 } else {
-                                    Toast.makeText(
-                                        context,
-                                        "Neuspesna registracija jer: ${task.exception?.message}",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    Toast.makeText(context, "Neuspesna registracija jer: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                                 }
                             }
                         )
@@ -181,12 +150,29 @@ class RegisterFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             imageView.setImageURI(data?.data)
-            uri = data.data!!
+            url = data.data!!
         }
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             val imageBitmap = data.extras?.get("data") as Bitmap
             imageView.setImageBitmap(imageBitmap)
-            //uri=saveBitmapAsUri(imageBitmap)
+            val tempUrl=saveBitmapAsUrl(imageBitmap)
+            url=tempUrl
         }
     }
+    private fun saveBitmapAsUrl(bitmap: Bitmap): Uri {
+        val tempFile = File(requireContext().cacheDir, "temp_image.jpg")
+        tempFile.createNewFile()
+
+        val outStream = FileOutputStream(tempFile)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream)
+        outStream.flush()
+        outStream.close()
+
+        return FileProvider.getUriForFile(
+            requireContext(),
+            "elfak.mosis.projekat.fileprovider",
+            tempFile
+        )
+    }
+
 }
