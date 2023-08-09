@@ -1,12 +1,13 @@
 package elfak.mosis.projekat
 
-data class User(val korisnickoIme:String?=null,
-                val sifra:String?=null,
-                val ime: String?=null,
-                val prezime:String?=null,
-                val brojTelefona:String?=null,
-                val bodovi:Int=0)
+data class User(var ime: String?=null,
+                var prezime:String?=null,
+                var brojTelefona:String?=null,
+                var urlSlike: String?=null)
 {
+        var bodovi:Int?=0
+        var korisnickoIme:String?=null
+        var password:String?=null
 
 }
 

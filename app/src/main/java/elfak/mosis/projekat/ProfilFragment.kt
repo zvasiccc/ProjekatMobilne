@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
 import elfak.mosis.projekat.databinding.FragmentProfilBinding
 import elfak.mosis.projekat.databinding.FragmentViewBinding
 
@@ -32,12 +34,33 @@ class ProfilFragment : Fragment() {
         trenutnoPrijavljeniKorisnik?.let { user ->
             val database: FirebaseDatabase = FirebaseDatabase.getInstance()
             val userRef: DatabaseReference = database.getReference("Users").child(user.uid)
+            val storage= FirebaseStorage.getInstance()
+            val storageReference = storage.reference
+            //val imageReference=storageReference.child("Slike")
+
+            userRef.child("urlSlike").addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val imageUrl = dataSnapshot.value as? String
+                    if (!imageUrl.isNullOrEmpty()) {
+                        Glide.with(requireContext())
+                            .load(imageUrl)
+                            .into(binding.imageViewSlika)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Doslo je do greske pri dohvatanju URL-a slike",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
             userRef.child("bodovi").addListenerForSingleValueEvent(object :ValueEventListener{
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val brojBodova=dataSnapshot.value as? Long ?:0
                     binding.textViewBodovi.text=brojBodova.toString()
                 }
-
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(
                         requireContext(),
@@ -53,7 +76,6 @@ class ProfilFragment : Fragment() {
         binding.buttonFiltrirajMesta.setOnClickListener{
             findNavController().navigate(R.id.action_profilFragment_to_filtriranjeFragment)
         }
-
 
 
         super.onViewCreated(view, savedInstanceState)

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.core.view.children
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
@@ -25,6 +26,7 @@ class LoginFragment : Fragment() {
     private lateinit var buttonPrijaviSe:Button
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: FragmentLoginBinding
+    private val profileViewModel: ProfileViewModel by activityViewModels()
     //private lateinit var bindind:LoginFragmentBinding //u fragment login se treba ukljuci na vrh neka slovca
     // Dodato nesto
     override fun onCreate(savedInstanceState: Bundle?) {
