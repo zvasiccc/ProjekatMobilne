@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,21 +11,41 @@
     <org.osmdroid.views.MapView
         android:id="@+id/map"
         tilesource="Mapnik"
-        android:layout_width="match_parent"
+        android:layout_width="396dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         app:layout_anchor="@+id/map"
-        app:layout_anchorGravity="center">
+        app:layout_anchorGravity="center" />
 
-
-    </org.osmdroid.views.MapView>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="72dp"
-        app:srcCompat="@drawable/ic_add" />
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:gravity="end">
+
+        <Button
+            android:id="@+id/buttonPretraga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pretraga"
+            android:layout_marginEnd="16dp" />
+
+        <EditText
+            android:id="@+id/editTextRadius"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Radijus u km"
+            android:inputType="number"
+            android:layout_marginEnd="16dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add"
+            android:layout_marginEnd="16dp" />
+
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-

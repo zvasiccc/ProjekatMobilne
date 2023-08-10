@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.*
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -20,11 +22,18 @@ import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 
 class MapFragment : Fragment() {
     lateinit var map:MapView
     private lateinit var fabButton:FloatingActionButton
+    private lateinit var pretragaButton:Button
+    private lateinit var radijusEditText:EditText
+    private val sviMarkeri:ArrayList<Marker> = ArrayList<Marker>()
     private val restaurantsViewModel: RestaurantsViewModel by activityViewModels()
     private val koordinateViewModel: KoordinateViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?){
@@ -67,6 +76,7 @@ class MapFragment : Fragment() {
             marker?.position = GeoPoint(res.latituda.toDouble(), res.longituda.toDouble())
             marker.icon=resources.getDrawable(org.osmdroid.library.R.drawable.marker_default_focused_base)
             map.overlays.add(marker)
+            sviMarkeri.add(marker)
         }
         fabButton=requireView().findViewById<FloatingActionButton>(R.id.fab)
         fabButton.setOnClickListener{
@@ -76,21 +86,67 @@ class MapFragment : Fragment() {
                 val latituda=trenutnaLokacija.latitude
                 val longituda=trenutnaLokacija.longitude
                 Toast.makeText(requireContext(),"latituda=$latituda a longituda=$longituda",Toast.LENGTH_LONG).show()
-                //val bundle=Bundle()
-                //bundle.putDouble("latituda",latituda)
-                //bundle.putDouble("longituda",longituda)
-                //val akcija = R.id.action_mapFragment_to_EditFragment(latituda,longituda)
-                //akcija.arguments=bundle
                 koordinateViewModel.latituda=latituda
                 koordinateViewModel.longituda=longituda
                 findNavController().navigate(R.id.action_mapFragment_to_EditFragment)
 
             }
         }
+
+        pretragaButton=requireView().findViewById<Button>(R.id.buttonPretraga)
+        radijusEditText=requireView().findViewById<EditText>(R.id.editTextRadius)
+        pretragaButton.setOnClickListener {
+            if(radijusEditText.text.isNotEmpty()) {
+                val myLocationOverlay =
+                    map.overlays.firstOrNull { it is MyLocationNewOverlay } as MyLocationNewOverlay?
+                myLocationOverlay?.run {
+                    val trenutnaLokacija = myLocation
+                    val latituda = trenutnaLokacija.latitude
+                    val longituda = trenutnaLokacija.longitude
+                    val radijus = radijusEditText.text.toString().toDouble()
+                    for (marker in sviMarkeri) {
+                        map.overlays.remove(marker)
+                    }
+                    sviMarkeri.clear()
+                    for (res in restaurantsViewModel.sviRestorani) {
+                        val udaljenost = izracunajUdaljenost(
+                            latituda,
+                            longituda,
+                            res.latituda.toDouble(),
+                            res.longituda.toDouble()
+                        )
+                        if (udaljenost <= radijus) {
+                            Toast.makeText(requireContext(),"Postoji resotran u radijusu",Toast.LENGTH_LONG).show()
+                            val marker = Marker(map)
+                            marker.position = GeoPoint(res.latituda.toDouble(), res.longituda.toDouble())
+                            marker.icon = resources.getDrawable(org.osmdroid.library.R.drawable.marker_default_focused_base)
+                            map.overlays.add(marker)//dodajemo ga na mapu jer je unutar radijusa
+                            sviMarkeri.add(marker)
+                        }
+                    }
+                }
+                map.invalidate()
+            }
+
+        }
         map.invalidate()
 
     }
 
+    private fun izracunajUdaljenost(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
+        val R = 6371 // Zemljopisni radijus u kilometrima
+
+        val latDistance = Math.toRadians(lat2 - lat1)
+        val lonDistance = Math.toRadians(lon2 - lon1)
+
+        val a = sin(latDistance / 2) * sin(latDistance / 2) +
+                cos(Math.toRadians(lat1)) * cos(Math.toRadians(lat2)) *
+                sin(lonDistance / 2) * sin(lonDistance / 2)
+
+        val c = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+        return R * c
+    }
     private fun setMyLocationOverlay(){
         var myLocationOverlay=MyLocationNewOverlay(GpsMyLocationProvider(activity),map)
         myLocationOverlay.enableMyLocation()
