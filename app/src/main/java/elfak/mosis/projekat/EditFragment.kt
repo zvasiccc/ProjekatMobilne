@@ -32,10 +32,6 @@ class EditFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //val latituda = arguments?.getDouble("latituda")
-        //val longituda = arguments?.getDouble("longituda")
-
-
         val trenutnoPrijavljeniKorisnik=FirebaseAuth.getInstance().currentUser
         val editName: EditText = binding.editTextImeMesta
         val editDesc: EditText = binding.editTextOpisMesta
@@ -92,9 +88,9 @@ class EditFragment : Fragment() {
             noviRestoran.idAutora=trenutnoPrijavljeniKorisnik!!.uid
             restaurantsViewModel.sviRestorani.add(noviRestoran)
             restaurantsViewModel.adapter?.notifyDataSetChanged()
-            //profileViewModel.bodovi = profileViewModel.bodovi.plus(10)
             trenutnoPrijavljeniKorisnik?.let{user->
-                val database:FirebaseDatabase=FirebaseDatabase.getInstance()
+                //val database:FirebaseDatabase=FirebaseDatabase.getInstance()
+                val database:FirebaseDatabase=restaurantsViewModel.database
                val userRef:DatabaseReference=database.getReference("Users").child(user.uid)
                 var restaurantRef:DatabaseReference=database.getReference("Restaurants")
                 if(restaurantsViewModel.selectedRestaurant != null)
@@ -118,11 +114,7 @@ class EditFragment : Fragment() {
                             koordinateViewModel.longituda=null
                         }
                         .addOnFailureListener {
-                            Toast.makeText(
-                                requireContext(),
-                                "Niste dodali restoran u bazu",
-                Toast.LENGTH_SHORT
-                ).show()
+                            Toast.makeText(requireContext(), "Niste dodali restoran u bazu",Toast.LENGTH_SHORT).show()
             }
 
 
@@ -131,19 +123,10 @@ class EditFragment : Fragment() {
                             val trenutniBodovi=task.result?.value as? Long?:0
                             val noviBodovi=trenutniBodovi+10
                             userRef.child("bodovi").setValue(noviBodovi)
-                            Toast.makeText(
-                                requireContext(),
-                                "Uspesno ste azurirali bodove na $noviBodovi",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast.makeText(requireContext(), "Uspesno ste azurirali bodove na $noviBodovi", Toast.LENGTH_SHORT).show()
                         } else {
-                            Toast.makeText(
-                                requireContext(),
-                                "Doslo je do greske ",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast.makeText(requireContext(), "Doslo je do greske ", Toast.LENGTH_SHORT).show()
                         }
-
                     }
             }
 

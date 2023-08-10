@@ -77,7 +77,8 @@ class MainActivity : AppCompatActivity() {
             // R.id.nav_add -> Toast.makeText(this, "Kliknuli ste dodavanje", Toast.LENGTH_SHORT).show()
             R.id.action_show_map-> {
                 Toast.makeText(this,"Prikazujem mapu",Toast.LENGTH_SHORT).show()
-                if(navController.currentDestination?.id == R.id.profilFragment) {
+                if(navController.currentDestination?.id == R.id.profilFragment ||
+                    navController.currentDestination?.id == R.id.EditFragment ) {
                     navController.navigate(R.id.action_profilFragment_to_mapFragment)
                 }
             }
@@ -90,7 +91,8 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.action_my_places_list-> {
                 Toast.makeText(this, "Prikazujem listu mesta", Toast.LENGTH_SHORT).show()
-                if(navController.currentDestination?.id == R.id.profilFragment) {
+                if(navController.currentDestination?.id == R.id.profilFragment ||
+                    navController.currentDestination?.id == R.id.EditFragment) {
                     navController.navigate(R.id.action_profilFragment_to_listaMestaFragment)
                 }
             }
