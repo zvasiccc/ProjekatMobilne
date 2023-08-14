@@ -100,6 +100,12 @@ class MainActivity : AppCompatActivity() {
                 val i:Intent=Intent(this,About::class.java)
                 startActivity(i)
             }
+            R.id.action_rangirani_korisnici->{
+                Toast.makeText(this,"Prikazujem rangirane korisinke",Toast.LENGTH_SHORT).show()
+                if(navController.currentDestination?.id==R.id.profilFragment){
+                   navController.navigate(R.id.action_profilFragment_to_rangiraniKorisniciFragment)
+                }
+            }
         }
         return super.onOptionsItemSelected(item)
     }

@@ -98,6 +98,7 @@ class RegisterFragment : Fragment() {
                                                     imageReferencee.downloadUrl.addOnSuccessListener { imageUri ->
                                                         val imageUrl = imageUri.toString()
                                                         val user = User(ime,prezime,brojTelefona,imageUrl)
+                                                        user.korisnickoIme=korisnickoIme //potrebno je za rangiranje
                                                         userReference.setValue(user)
                                                             .addOnSuccessListener {
                                                                 Toast.makeText(requireContext(), "Uspesno ste se registrovali", Toast.LENGTH_SHORT).show()

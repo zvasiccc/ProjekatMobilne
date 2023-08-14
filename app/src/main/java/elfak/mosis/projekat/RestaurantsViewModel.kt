@@ -24,7 +24,6 @@ class RestaurantsViewModel:ViewModel() {
         restaurantRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 sviRestorani.clear()
-
                 for (restaurantSnapshot in snapshot.children) {
                     val restaurant = restaurantSnapshot.getValue(Restaurant::class.java)
                     restaurant?.let {

@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_profilFragment_to_filtriranjeFragment"
             app:destination="@id/filtriranjeFragment" />
+        <action
+            android:id="@+id/action_profilFragment_to_rangiraniKorisniciFragment"
+            app:destination="@id/rangiraniKorisniciFragment" />
     </fragment>
     <fragment
         android:id="@+id/EditFragment"
@@ -121,4 +124,9 @@
             android:id="@+id/action_listaFiltriranihRestoranaFragment_to_viewFragment"
             app:destination="@id/viewFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/rangiraniKorisniciFragment"
+        android:name="elfak.mosis.projekat.RangiraniKorisniciFragment"
+        android:label="fragment_rangirani_korisnici"
+        tools:layout="@layout/fragment_rangirani_korisnici" />
 </navigation>

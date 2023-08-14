@@ -35,7 +35,7 @@
             android:id="@+id/editTextRadius"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Radijus u km"
+            android:hint="Unesite radijus u kilometrima"
             android:inputType="number"
             android:layout_marginEnd="16dp" />
 
