@@ -41,13 +41,10 @@ class FiltriranjeFragment : Fragment() {
             run {
                 when (checkedId) {
                     R.id.option1 -> {
-                        Toast.makeText(requireContext(), "kliknuta opcija po autoru", Toast.LENGTH_SHORT)
-                            .show()
                         binding.editTextVrednost.hint="Korisnicko ime"
 
                     }
                     R.id.option2 -> {
-                        Toast.makeText(requireContext(), "kliknuta opcija2 po oceni", Toast.LENGTH_SHORT).show()
                         binding.editTextVrednost.hint="Minimalna ocena"
                     }
                 }

@@ -52,7 +52,19 @@
     <fragment
         android:id="@+id/EditFragment"
         android:name="elfak.mosis.projekat.EditFragment"
-        android:label="EditFragment"></fragment>
+        android:label="EditFragment">
+        <action
+            android:id="@+id/action_EditFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_EditFragment_to_listaMestaFragment"
+            app:destination="@id/listaMestaFragment"
+            app:popUpTo="@id/listaMestaFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_EditFragment_to_rangiraniKorisniciFragment"
+            app:destination="@id/rangiraniKorisniciFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="elfak.mosis.projekat.MapFragment"
@@ -60,6 +72,7 @@
         tools:layout="@layout/fragment_map" >
         <action
             android:id="@+id/action_mapFragment_to_EditFragment"
+            app:popUpToInclusive="true"
             app:destination="@id/EditFragment" >
         <argument
             android:name="latituda"
@@ -70,13 +83,27 @@
         </action>
         <action
             android:id="@+id/action_mapFragment_to_viewFragment"
+            app:popUpToInclusive="true"
             app:destination="@id/viewFragment" />
+        <action
+            android:id="@+id/action_mapFragment_to_profilFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/profilFragment" />
     </fragment>
     <fragment
         android:id="@+id/viewFragment"
         android:name="elfak.mosis.projekat.ViewFragment"
         android:label="View my place "
-        tools:layout="@layout/fragment_view" />
+        tools:layout="@layout/fragment_view" >
+        <action
+            android:id="@+id/action_viewFragment_to_listaMestaFragment"
+            app:destination="@id/listaMestaFragment"
+            app:popUpTo="@id/listaMestaFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_viewFragment_to_EditFragment"
+            app:destination="@id/EditFragment" />
+    </fragment>
     <fragment
         android:id="@+id/listaMestaFragment"
         android:name="elfak.mosis.projekat.ListaMestaFragment"
@@ -84,16 +111,30 @@
         tools:layout="@layout/fragment_lista_mesta" >
         <action
             android:id="@+id/action_listaMestaFragment_to_EditFragment"
+            app:popUpToInclusive="true"
             app:destination="@id/EditFragment" />
         <action
             android:id="@+id/action_listaMestaFragment_to_viewFragment"
-            app:destination="@id/viewFragment" />
+            app:destination="@id/viewFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_listaMestaFragment_self"
             app:destination="@id/listaMestaFragment" />
         <action
             android:id="@+id/action_listaMestaFragment_to_oceniRestoranFragment"
             app:destination="@id/oceniRestoranFragment" />
+        <action
+            android:id="@+id/action_listaMestaFragment_to_rangiraniKorisniciFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/rangiraniKorisniciFragment" />
+        <action
+            android:id="@+id/action_listaMestaFragment_to_profilFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/profilFragment" />
+        <action
+            android:id="@+id/action_listaMestaFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/oceniRestoranFragment"
@@ -128,5 +169,21 @@
         android:id="@+id/rangiraniKorisniciFragment"
         android:name="elfak.mosis.projekat.RangiraniKorisniciFragment"
         android:label="fragment_rangirani_korisnici"
-        tools:layout="@layout/fragment_rangirani_korisnici" />
+        tools:layout="@layout/fragment_rangirani_korisnici" >
+        <action
+            android:id="@+id/action_rangiraniKorisniciFragment_to_EditFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/EditFragment" />
+        <action
+            android:id="@+id/action_rangiraniKorisniciFragment_to_profilFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/profilFragment" />
+        <action
+            android:id="@+id/action_rangiraniKorisniciFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_rangiraniKorisniciFragment_to_listaMestaFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/listaMestaFragment" />
+    </fragment>
 </navigation>

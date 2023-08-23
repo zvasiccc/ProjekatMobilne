@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -26,6 +28,8 @@ class ProfilFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentProfilBinding.inflate(inflater,container,false)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = null
+
         return binding.root
     }
 
@@ -79,8 +83,14 @@ class ProfilFragment : Fragment() {
         binding.buttonFiltrirajMesta.setOnClickListener{
             findNavController().navigate(R.id.action_profilFragment_to_filtriranjeFragment)
         }
+        binding.buttonOdjaviSe.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            findNavController().navigate(R.id.action_profilFragment_to_loginFragment2)
+        }
 
-
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+            //ne radi nista
+        }
         super.onViewCreated(view, savedInstanceState)
     }
 }

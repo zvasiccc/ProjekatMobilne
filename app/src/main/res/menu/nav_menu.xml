@@ -1,18 +1,3 @@
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<menu xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto">-->
-<!--    <item android:id="@+id/nav_delete"-->
-<!--        android:icon="@drawable/ic_delete"-->
-<!--        android:title="Obrisi "-->
-<!--        app:showAsAction="ifRoom"/>-->
-<!--    <item android:id="@+id/nav_add"-->
-<!--        android:icon="@drawable/ic_add"-->
-<!--        android:title="Dodaj"-->
-<!--        app:showAsAction="ifRoom"/>-->
-<!--    <item android:id="@+id/dodatnaOpcija"-->
-<!--        android:title="Dodatna opcija"-->
-<!--        app:showAsAction="never"/>-->
-<!--</menu>-->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"

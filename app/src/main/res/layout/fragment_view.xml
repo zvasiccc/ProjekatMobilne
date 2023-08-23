@@ -12,18 +12,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ovde ce biti ime"
+        android:textSize="20sp"
+        android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/textViewOpis"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="129dp" />
+        tools:layout_editor_absoluteX="129dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textViewOpis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ovde ce biti opis"
+        android:textSize="18sp"
+        android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/textViewProsecnaOcena"
         app:layout_constraintTop_toBottomOf="@+id/textViewIme"
-        tools:layout_editor_absoluteX="129dp" />
+        tools:layout_editor_absoluteX="129dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textViewProsecnaOcena"
@@ -31,7 +37,10 @@
         android:layout_height="45dp"
         android:layout_marginBottom="104dp"
         android:text="Ovde ce biti prosecna ocena"
+        android:textSize="24sp"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="115dp" />
+        tools:layout_editor_absoluteX="115dp"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

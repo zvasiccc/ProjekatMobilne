@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
@@ -46,6 +47,7 @@ class MapFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = null
         return inflater.inflate(R.layout.fragment_map,container,false)
     }
 
@@ -169,6 +171,10 @@ class MapFragment : Fragment() {
         }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
+            android.R.id.home->{
+               findNavController().navigateUp()
+                true
+            }
             R.id.action_new_place->{
                 this.findNavController().navigate(R.id.action_mapFragment_to_EditFragment)
                 true

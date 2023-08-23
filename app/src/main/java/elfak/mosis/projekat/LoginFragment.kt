@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
@@ -49,6 +50,7 @@ class LoginFragment : Fragment() {
     ): View? {
         //return inflater.inflate(R.layout.fragment_login, container, false)
         binding = FragmentLoginBinding.inflate(inflater, container, false)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = null
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

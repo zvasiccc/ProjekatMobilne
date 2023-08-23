@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import elfak.mosis.projekat.databinding.FragmentEditBinding
 import elfak.mosis.projekat.databinding.FragmentViewBinding
@@ -32,8 +34,8 @@ class ViewFragment : Fragment() {
             binding.textViewIme.text = restaurantsViewModel.selectedRestaurant!!.ime
             binding.textViewOpis.text = restaurantsViewModel.selectedRestaurant!!.opis
             binding.textViewProsecnaOcena.text=restaurantsViewModel.selectedRestaurant!!.prosecnaOcena.toString()
-
         }
+
         super.onViewCreated(view, savedInstanceState)
     }
 
