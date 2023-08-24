@@ -70,9 +70,25 @@ class MainActivity : AppCompatActivity() {
             // R.id.nav_add -> Toast.makeText(this, "Kliknuli ste dodavanje", Toast.LENGTH_SHORT).show()
             R.id.action_show_map-> {
                 Toast.makeText(this,"Prikazujem mapu",Toast.LENGTH_SHORT).show()
-                if(navController.currentDestination?.id == R.id.profilFragment ||
-                    navController.currentDestination?.id == R.id.EditFragment ) {
+                if(navController.currentDestination?.id == R.id.profilFragment)
+                   {
                     navController.navigate(R.id.action_profilFragment_to_mapFragment)
+                }
+                if(  navController.currentDestination?.id == R.id.EditFragment )
+                {
+                    navController.navigate(R.id.action_EditFragment_to_mapFragment)
+                }
+                if(navController.currentDestination?.id==R.id.listaMestaFragment)
+                {
+                    navController.navigate(R.id.action_listaMestaFragment_to_mapFragment)
+                }
+                if(navController.currentDestination?.id==R.id.viewFragment)
+                {
+                    navController.navigate(R.id.action_viewFragment_to_mapFragment)
+                }
+                if(navController.currentDestination?.id==R.id.rangiraniKorisniciFragment)
+                {
+                    navController.navigate(R.id.action_rangiraniKorisniciFragment_to_mapFragment)
                 }
             }
             R.id.action_new_place->
@@ -90,6 +106,10 @@ class MainActivity : AppCompatActivity() {
                     restaurantsViewModel.selectedRestaurant=null
                     navController.navigate(R.id.action_viewFragment_to_EditFragment)
                 }
+                if(navController.currentDestination?.id==R.id.rangiraniKorisniciFragment)
+                {
+                    navController.navigate(R.id.action_rangiraniKorisniciFragment_to_EditFragment)
+                }
             }
             R.id.action_my_places_list-> {
                 Toast.makeText(this, "Prikazujem listu mesta", Toast.LENGTH_SHORT).show()
@@ -99,6 +119,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 if(navController.currentDestination?.id == R.id.EditFragment) {
                     navController.navigate(R.id.action_EditFragment_to_listaMestaFragment)
+                }
+                if(navController.currentDestination?.id==R.id.rangiraniKorisniciFragment)
+                {
+                    navController.navigate(R.id.action_rangiraniKorisniciFragment_to_listaMestaFragment)
                 }
                 if(navController.currentDestination?.id==R.id.rangiraniKorisniciFragment)
                 {

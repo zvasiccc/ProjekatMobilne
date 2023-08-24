@@ -16,6 +16,8 @@ import com.google.firebase.database.ValueEventListener
 import elfak.mosis.projekat.databinding.FragmentFiltriranjeBinding
 import elfak.mosis.projekat.databinding.FragmentRegisterBinding
 import kotlinx.coroutines.selects.select
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class FiltriranjeFragment : Fragment() {
@@ -42,10 +44,27 @@ class FiltriranjeFragment : Fragment() {
                 when (checkedId) {
                     R.id.option1 -> {
                         binding.editTextVrednost.hint="Korisnicko ime"
-
+                        binding.editTextStartDate.hint=""
+                        binding.editTextEndDate.hint=""
+                        binding.editTextStartDate.isEnabled=false
+                        binding.editTextEndDate.isEnabled=false
+                        binding.editTextVrednost.isEnabled=true
                     }
                     R.id.option2 -> {
                         binding.editTextVrednost.hint="Minimalna ocena"
+                        binding.editTextStartDate.hint=""
+                        binding.editTextEndDate.hint=""
+                        binding.editTextStartDate.isEnabled=false
+                        binding.editTextEndDate.isEnabled=false
+                        binding.editTextVrednost.isEnabled=true
+                    }
+                    R.id.option3->{
+                        binding.editTextVrednost.hint=""
+                        binding.editTextVrednost.isEnabled=false
+                        binding.editTextStartDate.isEnabled=true
+                        binding.editTextEndDate.isEnabled=true
+
+
                     }
                 }
             }
@@ -103,6 +122,42 @@ class FiltriranjeFragment : Fragment() {
                                 val restaurant=restaurantSnapshot.getValue(Restaurant::class.java)
                                 if(restaurant?.prosecnaOcena!! >=unesenaMinimalnaOcena )
                                 {
+                                    restaurantsViewModel.filtiraniRestorani.add(restaurant)
+                                }
+                            }
+                            restaurantsViewModel.filterAdapter?.notifyDataSetChanged()
+                            findNavController().navigate(R.id.action_filtriranjeFragment_to_listaFiltriranihRestoranaFragment)
+                        }
+                        override fun onCancelled(error: DatabaseError) {
+                            Toast.makeText(
+                                requireContext(),
+                                "Error fetching users: ${error.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    })
+                }
+                R.id.option3->{
+                   val pocetniDatum:String=binding.editTextStartDate.text.toString();
+                    val krajnjiDatum:String=binding.editTextEndDate.text.toString();
+                    val restaurantsRef=restaurantsViewModel.database.getReference("Restaurants")
+                    restaurantsRef.addListenerForSingleValueEvent(object: ValueEventListener
+                    {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            restaurantsViewModel.filtiraniRestorani.clear()
+                            for(restaurantSnapshot in snapshot.children){
+                                val restaurant=restaurantSnapshot.getValue(Restaurant::class.java)
+                                val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+                                val pocetniDatumParsirani = sdf.parse(pocetniDatum)
+                                val krajnjiDatumParsirani = sdf.parse(krajnjiDatum)
+                                val datumKreiranjaParsirani = sdf.parse(restaurant!!.datumKreiranja)
+                                if(pocetniDatumParsirani<=datumKreiranjaParsirani && krajnjiDatumParsirani>=datumKreiranjaParsirani)
+                                {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Postoji restoran",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                     restaurantsViewModel.filtiraniRestorani.add(restaurant)
                                 }
                             }

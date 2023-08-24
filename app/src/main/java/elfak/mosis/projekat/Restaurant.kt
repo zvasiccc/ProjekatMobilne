@@ -1,5 +1,7 @@
 package elfak.mosis.projekat
 
+import java.sql.Date
+
 data class Restaurant(
                     var ime: String="",
                       var opis:String="",
@@ -10,6 +12,7 @@ data class Restaurant(
     var prosecnaOcena:Int=0
     var brojOcena:Int=0
     var idAutora:String=""
+    var datumKreiranja: String="";
     override fun toString(): String {
         return ime
     }

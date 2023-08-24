@@ -103,6 +103,9 @@
         <action
             android:id="@+id/action_viewFragment_to_EditFragment"
             app:destination="@id/EditFragment" />
+        <action
+            android:id="@+id/action_viewFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/listaMestaFragment"

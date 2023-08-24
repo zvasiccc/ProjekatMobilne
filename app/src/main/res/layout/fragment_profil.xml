@@ -18,12 +18,15 @@
         app:layout_constraintTop_toTopOf="@+id/buttonFiltrirajMesta"
         tools:ignore="MissingConstraints" />
 
+
     <TextView
         android:id="@+id/textViewBodovi"
         android:layout_width="102dp"
         android:layout_height="32dp"
-        android:layout_marginEnd="52dp"
-        android:text="Ovde ce se prikazati bodovi"
+        android:layout_marginEnd="64dp"
+        android:text=""
+        android:textColor="#000000"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/imageViewSlika"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -34,18 +37,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Prijavili ste se uspesno"
+        android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewBodovi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.625"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="127dp" />
-
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textViewBodoviLabela"
-        android:layout_width="89dp"
-        android:layout_height="22dp"
+        android:layout_width="200dp"
+        android:layout_height="32dp"
         android:layout_marginEnd="8dp"
         android:text="Broj bodova:"
+        android:textColor="#000000"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/textViewBodovi"
         app:layout_constraintHorizontal_bias="0.278"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,12 +73,13 @@
         android:id="@+id/imageViewSlika"
         android:layout_width="158dp"
         android:layout_height="112dp"
-        android:layout_marginBottom="124dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonFiltrirajMesta"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.565"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:srcCompat="@drawable/person" />
+        android:layout_marginBottom="56dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonFiltrirajMesta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+    <!--        app:srcCompat="@drawable/person"-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

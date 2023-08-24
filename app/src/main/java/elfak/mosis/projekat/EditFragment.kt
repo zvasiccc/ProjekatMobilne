@@ -16,6 +16,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import elfak.mosis.projekat.databinding.FragmentEditBinding
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.*
 
 class EditFragment : Fragment() {
 
@@ -88,6 +91,10 @@ class EditFragment : Fragment() {
             val latituda = editLatitude.text.toString()
             val noviRestoran: Restaurant = Restaurant(name, opis, longituda, latituda)
             noviRestoran.idAutora=trenutnoPrijavljeniKorisnik!!.uid
+            // Konvertujemo datum u string
+            val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+            val trenutniDatum = sdf.format(Date())
+            noviRestoran.datumKreiranja = trenutniDatum
             restaurantsViewModel.sviRestorani.add(noviRestoran)
             restaurantsViewModel.adapter?.notifyDataSetChanged()
             trenutnoPrijavljeniKorisnik?.let{user->

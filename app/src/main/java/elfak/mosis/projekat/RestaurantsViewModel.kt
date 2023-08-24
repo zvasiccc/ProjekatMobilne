@@ -38,7 +38,7 @@ class RestaurantsViewModel:ViewModel() {
             override fun onCancelled(error: DatabaseError) {
                 // Handle the error (optional)
                 // Toast.makeText(requireContext(), "Failed to load restaurants", Toast.LENGTH_SHORT).show()
-                Log.v("Stpendija", "Failed to load restaurants")
+                Log.v("Greska", "Failed to load restaurants")
             }
         })
     }
