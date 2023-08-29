@@ -154,7 +154,7 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.action_listaFiltriranihRestoranaFragment_to_listaMestaFragment)
                 }
             }
-//
+
             R.id.action_rangirani_korisnici->{
                 if(navController.currentDestination?.id==R.id.profilFragment){
                    navController.navigate(R.id.action_profilFragment_to_rangiraniKorisniciFragment)
