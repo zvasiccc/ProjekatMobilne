@@ -89,6 +89,12 @@
             android:id="@+id/action_mapFragment_to_profilFragment"
             app:popUpToInclusive="true"
             app:destination="@id/profilFragment" />
+        <action
+            android:id="@+id/action_mapFragment_to_listaMestaFragment"
+            app:destination="@id/listaMestaFragment" />
+        <action
+            android:id="@+id/action_mapFragment_to_rangiraniKorisniciFragment"
+            app:destination="@id/rangiraniKorisniciFragment" />
     </fragment>
     <fragment
         android:id="@+id/viewFragment"
@@ -106,6 +112,9 @@
         <action
             android:id="@+id/action_viewFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_viewFragment_to_rangiraniKorisniciFragment"
+            app:destination="@id/rangiraniKorisniciFragment" />
     </fragment>
     <fragment
         android:id="@+id/listaMestaFragment"
@@ -155,6 +164,18 @@
         <action
             android:id="@+id/action_filtriranjeFragment_to_listaFiltriranihRestoranaFragment"
             app:destination="@id/listaFiltriranihRestoranaFragment" />
+        <action
+            android:id="@+id/action_filtriranjeFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_filtriranjeFragment_to_EditFragment"
+            app:destination="@id/EditFragment" />
+        <action
+            android:id="@+id/action_filtriranjeFragment_to_listaMestaFragment"
+            app:destination="@id/listaMestaFragment" />
+        <action
+            android:id="@+id/action_filtriranjeFragment_to_rangiraniKorisniciFragment"
+            app:destination="@id/rangiraniKorisniciFragment" />
     </fragment>
     <fragment
         android:id="@+id/listaFiltriranihRestoranaFragment"

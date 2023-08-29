@@ -60,8 +60,6 @@ class ProfilFragment : Fragment() {
                 }
             })
 
-
-
             userRef.child("bodovi").addListenerForSingleValueEvent(object :ValueEventListener{
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val brojBodova=dataSnapshot.value as? Long ?:0
@@ -71,6 +69,20 @@ class ProfilFragment : Fragment() {
                     Toast.makeText(
                         requireContext(),
                         "Doslo je do greske pri dohvatanju bodova",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            })
+            userRef.child("korisnickoIme").addListenerForSingleValueEvent(object :ValueEventListener{
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val userName=dataSnapshot.value as? String
+                    binding.textViewKorisnickoIme.text=userName
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Doslo je do greske pri dohvatanju korisnickog imena",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

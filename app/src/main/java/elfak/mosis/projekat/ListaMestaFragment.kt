@@ -8,6 +8,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -30,7 +31,8 @@ class ListaMestaFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = null
         return inflater.inflate(R.layout.fragment_lista_mesta, container, false)
     }
 

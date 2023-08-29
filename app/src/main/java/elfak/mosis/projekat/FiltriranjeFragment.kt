@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.database.DataSnapshot
@@ -31,6 +32,7 @@ class FiltriranjeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentFiltriranjeBinding.inflate(inflater, container, false)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = null
         return binding.root
     }
 
@@ -60,6 +62,8 @@ class FiltriranjeFragment : Fragment() {
                     }
                     R.id.option3->{
                         binding.editTextVrednost.hint=""
+                        binding.editTextStartDate.hint="Pocetni datum"
+                        binding.editTextEndDate.hint="Krajnji datum"
                         binding.editTextVrednost.isEnabled=false
                         binding.editTextStartDate.isEnabled=true
                         binding.editTextEndDate.isEnabled=true
@@ -72,106 +76,139 @@ class FiltriranjeFragment : Fragment() {
         buttonPotvrdi.setOnClickListener{
             when(selectedRadioButtonId) {
                 R.id.option1-> {
-                    val usersRef = restaurantsViewModel.database.getReference("Users")
-                    usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            restaurantsViewModel.filtiraniRestorani.clear()
-                            for (userSnapshot in snapshot.children) {
-                                val user = userSnapshot.getValue(User::class.java)
-                                //usersnapshot je cela klasa usera zajedno sa key, sadrzi razne reference i vremena
-                                //a user su izvuceni moji atributi iz toga
-                                if (user!!.korisnickoIme == binding.editTextVrednost.text.toString()) {
-                                    for (res in restaurantsViewModel.sviRestorani) {
-                                        if (res.idAutora == userSnapshot.key) {
-                                            restaurantsViewModel.filtiraniRestorani.add(res)
+                    val unetoKorisnickoIme = binding.editTextVrednost.text.toString().trim()
+                    if (unetoKorisnickoIme.isNotEmpty()) {
+                        val usersRef = restaurantsViewModel.database.getReference("Users")
+                        usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                restaurantsViewModel.filtiraniRestorani.clear()
+                                for (userSnapshot in snapshot.children) {
+                                    val user = userSnapshot.getValue(User::class.java)
+                                    //usersnapshot je cela klasa usera zajedno sa key, sadrzi razne reference i vremena
+                                    //a user su izvuceni moji atributi iz toga
+                                    if (user!!.korisnickoIme == binding.editTextVrednost.text.toString()) {
+                                        for (res in restaurantsViewModel.sviRestorani) {
+                                            if (res.idAutora == userSnapshot.key) {
+                                                restaurantsViewModel.filtiraniRestorani.add(res)
+                                            }
                                         }
                                     }
                                 }
+                                restaurantsViewModel.filterAdapter?.notifyDataSetChanged()
+                                findNavController().navigate(R.id.action_filtriranjeFragment_to_listaFiltriranihRestoranaFragment)
+                                //ako se brzo dobije odgovor onda druga nit jos nije stigla da ide u drugi fragment
+                                // i restaurantsViewModel.filterAdapter je null i ne obavestava se nista
+                                //vec kada nit stigne do drugog fragmenta ima sve potrebne podatke i odmah renderuje
+                                //i prikazuje sta treba
                             }
-                            restaurantsViewModel.filterAdapter?.notifyDataSetChanged()
-                            findNavController().navigate(R.id.action_filtriranjeFragment_to_listaFiltriranihRestoranaFragment)
-                            //ako se brzo dobije odgovor onda druga nit jos nije stigla da ide u drugi fragment
-                            // i restaurantsViewModel.filterAdapter je null i ne obavestava se nista
-                            //vec kada nit stigne do drugog fragmenta ima sve potrebne podatke i odmah renderuje
-                            //i prikazuje sta treba
-                        }
-                        //ovo je asinhrono i nit posalje zahtev na firebase i ceka odgovor od baze na set on data change, druga nit
-                        //nastavlja dalje i moze da se klikne dugme pre nego sto je pribavljeni podaci, druga nit prelazi na
-                        //sledeci fragment i tamo prvo renderuje praznu listu, dok se ovde ne ucitaju podaci i posalje notify
-                        //da su podaci ucitani i u drugom fragmentu se azurira prikaz liste sa novim opdacima
+                            //ovo je asinhrono i nit posalje zahtev na firebase i ceka odgovor od baze na set on data change, druga nit
+                            //nastavlja dalje i moze da se klikne dugme pre nego sto je pribavljeni podaci, druga nit prelazi na
+                            //sledeci fragment i tamo prvo renderuje praznu listu, dok se ovde ne ucitaju podaci i posalje notify
+                            //da su podaci ucitani i u drugom fragmentu se azurira prikaz liste sa novim opdacima
 
-                        override fun onCancelled(error: DatabaseError) {
-                            // Handle the error if any occurs
-                            Toast.makeText(
-                                requireContext(),
-                                "Error fetching users: ${error.message}",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+                            override fun onCancelled(error: DatabaseError) {
+                                // Handle the error if any occurs
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error fetching users: ${error.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
 
-                    })
+                        })
+                    }
+
+                else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Unesite korisnicko ime",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-                R.id.option2->{
-                    val unesenaMinimalnaOcena:Double=binding.editTextVrednost.text.toString().toDouble()
-                     val restaurantsRef=restaurantsViewModel.database.getReference("Restaurants")
-                    restaurantsRef.addListenerForSingleValueEvent(object: ValueEventListener
-                    {
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            restaurantsViewModel.filtiraniRestorani.clear()
-                            for(restaurantSnapshot in snapshot.children){
-                                val restaurant=restaurantSnapshot.getValue(Restaurant::class.java)
-                                if(restaurant?.prosecnaOcena!! >=unesenaMinimalnaOcena )
-                                {
-                                    restaurantsViewModel.filtiraniRestorani.add(restaurant)
+                    }
+                R.id.option2-> {
+                    val unesenaMinimalnaOcenaText = binding.editTextVrednost.text.toString().trim()
+                    if (unesenaMinimalnaOcenaText.isNotEmpty()) {
+                        val unesenaMinimalnaOcena = unesenaMinimalnaOcenaText.toDouble()
+                        val restaurantsRef =
+                            restaurantsViewModel.database.getReference("Restaurants")
+                        restaurantsRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                restaurantsViewModel.filtiraniRestorani.clear()
+                                for (restaurantSnapshot in snapshot.children) {
+                                    val restaurant =
+                                        restaurantSnapshot.getValue(Restaurant::class.java)
+                                    if (restaurant?.prosecnaOcena!! >= unesenaMinimalnaOcena) {
+                                        restaurantsViewModel.filtiraniRestorani.add(restaurant)
+                                    }
                                 }
+                                restaurantsViewModel.filterAdapter?.notifyDataSetChanged()
+                                findNavController().navigate(R.id.action_filtriranjeFragment_to_listaFiltriranihRestoranaFragment)
                             }
-                            restaurantsViewModel.filterAdapter?.notifyDataSetChanged()
-                            findNavController().navigate(R.id.action_filtriranjeFragment_to_listaFiltriranihRestoranaFragment)
-                        }
-                        override fun onCancelled(error: DatabaseError) {
-                            Toast.makeText(
-                                requireContext(),
-                                "Error fetching users: ${error.message}",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    })
+
+                            override fun onCancelled(error: DatabaseError) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error fetching users: ${error.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        })
+                    }
+                    else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Unesite minimalnu ocenu",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
-                R.id.option3->{
-                   val pocetniDatum:String=binding.editTextStartDate.text.toString();
-                    val krajnjiDatum:String=binding.editTextEndDate.text.toString();
-                    val restaurantsRef=restaurantsViewModel.database.getReference("Restaurants")
-                    restaurantsRef.addListenerForSingleValueEvent(object: ValueEventListener
-                    {
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            restaurantsViewModel.filtiraniRestorani.clear()
-                            for(restaurantSnapshot in snapshot.children){
-                                val restaurant=restaurantSnapshot.getValue(Restaurant::class.java)
-                                val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-                                val pocetniDatumParsirani = sdf.parse(pocetniDatum)
-                                val krajnjiDatumParsirani = sdf.parse(krajnjiDatum)
-                                val datumKreiranjaParsirani = sdf.parse(restaurant!!.datumKreiranja)
-                                if(pocetniDatumParsirani<=datumKreiranjaParsirani && krajnjiDatumParsirani>=datumKreiranjaParsirani)
-                                {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "Postoji restoran",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    restaurantsViewModel.filtiraniRestorani.add(restaurant)
+                R.id.option3-> {
+                    val pocetniDatum: String = binding.editTextStartDate.text.toString().trim();
+                    val krajnjiDatum: String = binding.editTextEndDate.text.toString().trim();
+                    if (pocetniDatum.isNotEmpty() && krajnjiDatum.isNotEmpty()) {
+                        val restaurantsRef =
+                            restaurantsViewModel.database.getReference("Restaurants")
+                        restaurantsRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                restaurantsViewModel.filtiraniRestorani.clear()
+                                for (restaurantSnapshot in snapshot.children) {
+                                    val restaurant =
+                                        restaurantSnapshot.getValue(Restaurant::class.java)
+                                    val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+                                    val pocetniDatumParsirani = sdf.parse(pocetniDatum)
+                                    val krajnjiDatumParsirani = sdf.parse(krajnjiDatum)
+                                    val datumKreiranjaParsirani =
+                                        sdf.parse(restaurant!!.datumKreiranja)
+                                    if (pocetniDatumParsirani <= datumKreiranjaParsirani && krajnjiDatumParsirani >= datumKreiranjaParsirani) {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "Postoji restoran",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        restaurantsViewModel.filtiraniRestorani.add(restaurant)
+                                    }
                                 }
+                                restaurantsViewModel.filterAdapter?.notifyDataSetChanged()
+                                findNavController().navigate(R.id.action_filtriranjeFragment_to_listaFiltriranihRestoranaFragment)
                             }
-                            restaurantsViewModel.filterAdapter?.notifyDataSetChanged()
-                            findNavController().navigate(R.id.action_filtriranjeFragment_to_listaFiltriranihRestoranaFragment)
-                        }
-                        override fun onCancelled(error: DatabaseError) {
-                            Toast.makeText(
-                                requireContext(),
-                                "Error fetching users: ${error.message}",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    })
+
+                            override fun onCancelled(error: DatabaseError) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error fetching users: ${error.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        })
+                    }
+                    else{
+                        Toast.makeText(
+                            requireContext(),
+                            "Unesite datume",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
 

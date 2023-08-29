@@ -84,6 +84,10 @@ class MainActivity : AppCompatActivity() {
                 {
                     navController.navigate(R.id.action_rangiraniKorisniciFragment_to_mapFragment)
                 }
+                if(navController.currentDestination?.id==R.id.filtriranjeFragment)
+                {
+                    navController.navigate(R.id.action_filtriranjeFragment_to_mapFragment)
+                }
             }
             R.id.action_new_place->
             {
@@ -104,6 +108,14 @@ class MainActivity : AppCompatActivity() {
                 {
                     navController.navigate(R.id.action_rangiraniKorisniciFragment_to_EditFragment)
                 }
+                if (navController.currentDestination?.id==R.id.mapFragment)
+                {
+                    navController.navigate(R.id.action_mapFragment_to_EditFragment)
+                }
+                if(navController.currentDestination?.id==R.id.filtriranjeFragment)
+                {
+                    navController.navigate(R.id.action_filtriranjeFragment_to_EditFragment)
+                }
             }
             R.id.action_my_places_list-> {
                 if(navController.currentDestination?.id == R.id.profilFragment)
@@ -113,13 +125,21 @@ class MainActivity : AppCompatActivity() {
                 if(navController.currentDestination?.id == R.id.EditFragment) {
                     navController.navigate(R.id.action_EditFragment_to_listaMestaFragment)
                 }
-                if(navController.currentDestination?.id==R.id.rangiraniKorisniciFragment)
+                if(navController.currentDestination?.id==R.id.viewFragment)
                 {
-                    navController.navigate(R.id.action_rangiraniKorisniciFragment_to_listaMestaFragment)
+                    navController.navigate(R.id.action_viewFragment_to_listaMestaFragment)
                 }
                 if(navController.currentDestination?.id==R.id.rangiraniKorisniciFragment)
                 {
                     navController.navigate(R.id.action_rangiraniKorisniciFragment_to_listaMestaFragment)
+                }
+                if(navController.currentDestination?.id==R.id.mapFragment)
+                {
+                    navController.navigate(R.id.action_mapFragment_to_listaMestaFragment)
+                }
+                if(navController.currentDestination?.id==R.id.filtriranjeFragment)
+                {
+                    navController.navigate(R.id.action_filtriranjeFragment_to_listaMestaFragment)
                 }
             }
 //            R.id.action_about->{
@@ -137,6 +157,18 @@ class MainActivity : AppCompatActivity() {
                 if(navController.currentDestination?.id==R.id.listaMestaFragment)
                 {
                     navController.navigate(R.id.action_listaMestaFragment_to_rangiraniKorisniciFragment)
+                }
+                if(navController.currentDestination?.id==R.id.viewFragment)
+                {
+                    navController.navigate(R.id.action_viewFragment_to_rangiraniKorisniciFragment)
+                }
+                if(navController.currentDestination?.id==R.id.mapFragment)
+                {
+                    navController.navigate(R.id.action_mapFragment_to_rangiraniKorisniciFragment)
+                }
+                if(navController.currentDestination?.id==R.id.filtriranjeFragment)
+                {
+                    navController.navigate(R.id.action_filtriranjeFragment_to_rangiraniKorisniciFragment)
                 }
             }
         }
