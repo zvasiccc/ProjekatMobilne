@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -32,6 +33,7 @@ class EditFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentEditBinding.inflate(inflater, container, false)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = null
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -152,5 +154,10 @@ class EditFragment : Fragment() {
             findNavController().popBackStack()
 
         }
+    }
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        var item=menu.findItem(R.id.action_new_place)
+        item.isVisible=false;
     }
 }

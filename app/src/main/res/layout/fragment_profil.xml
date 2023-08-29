@@ -23,26 +23,13 @@
         android:id="@+id/textViewBodovi"
         android:layout_width="102dp"
         android:layout_height="32dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="92dp"
         android:text=""
-        android:textColor="#000000"
+        android:textColor="#B15335"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageViewSlika"
+        app:layout_constraintBottom_toTopOf="@+id/buttonFiltrirajMesta"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Prijavili ste se uspesno"
-        android:textSize="22sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewBodovi"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.625"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -60,10 +47,10 @@
 
     <Button
         android:id="@+id/buttonFiltrirajMesta"
-        android:layout_width="164dp"
-        android:layout_height="53dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginBottom="100dp"
+        android:layout_width="168dp"
+        android:layout_height="74dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="96dp"
         android:text="Filtriraj restorane"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,15 +58,30 @@
 
     <ImageView
         android:id="@+id/imageViewSlika"
-        android:layout_width="158dp"
-        android:layout_height="112dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="56dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonFiltrirajMesta"
+        android:layout_width="178dp"
+        android:layout_height="117dp"
+        android:layout_marginBottom="96dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewBodovi"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewKorisnickoIme"
+        android:layout_width="344dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="64dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="#8C3F3F"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewSlika"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.597"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.697"
+        tools:ignore="MissingConstraints" />
     <!--        app:srcCompat="@drawable/person"-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

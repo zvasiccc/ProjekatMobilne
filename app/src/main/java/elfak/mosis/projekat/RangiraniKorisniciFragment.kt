@@ -3,11 +3,13 @@ package elfak.mosis.projekat
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import com.google.firebase.database.*
 
@@ -21,6 +23,7 @@ class RangiraniKorisniciFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = null
         return inflater.inflate(R.layout.fragment_rangirani_korisnici, container, false)
     }
 
@@ -51,8 +54,10 @@ class RangiraniKorisniciFragment : Fragment() {
             }
 
         })
-
-
     }
-
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        var item=menu.findItem(R.id.action_rangirani_korisnici)
+        item.isVisible=false;
+    }
 }

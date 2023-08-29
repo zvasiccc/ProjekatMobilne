@@ -21,6 +21,7 @@
         <RadioButton
             android:id="@+id/option1"
             android:layout_width="wrap_content"
+            android:textSize="22sp"
             android:layout_height="wrap_content"
             android:text="Po autoru" />
 
@@ -28,13 +29,15 @@
             android:id="@+id/option2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="22sp"
             android:text="Po minimalnoj oceni" />
 
         <RadioButton
             android:id="@+id/option3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Po datumu" />
+            android:textSize="22sp"
+            android:text="Po datumu kreiranja" />
 
 
     </RadioGroup>
@@ -44,6 +47,7 @@
         android:layout_width="267dp"
         android:layout_height="54dp"
         android:enabled="false"
+        android:textSize="19sp"
         app:layout_constraintBottom_toTopOf="@+id/editTextStartDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.423"
@@ -53,9 +57,9 @@
 
     <Button
         android:id="@+id/buttonPotvrdi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
+        android:layout_width="167dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="72dp"
         android:text="Potvrdi"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,39 +68,39 @@
 
     <EditText
         android:id="@+id/editTextStartDate"
-        android:layout_width="142dp"
-        android:layout_height="38dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="112dp"
+        android:layout_width="187dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="84dp"
         android:ems="10"
         android:enabled="false"
-        android:hint="Pocetni datum"
+        android:textSize="19sp"
         android:inputType="date"
         app:layout_constraintBottom_toTopOf="@+id/buttonPotvrdi"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/editTextEndDate"
-        android:layout_width="146dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginEnd="35dp"
+        android:layout_width="180dp"
+        android:layout_height="53dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:enabled="false"
-        android:hint="Krajnji datum"
         android:inputType="date"
+        android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="@+id/editTextStartDate"
-        app:layout_constraintEnd_toStartOf="@+id/editTextStartDate"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="301dp"
+        android:layout_height="35dp"
         android:layout_marginBottom="40dp"
         android:text="Izaberite po cemu zelite da filtrirate"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

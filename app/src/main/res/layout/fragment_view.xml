@@ -9,38 +9,60 @@
 
     <TextView
         android:id="@+id/textViewIme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="306dp"
+        android:layout_height="109dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
         android:text="Ovde ce biti ime"
-        android:textSize="20sp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/textViewOpis"
+        android:textColor="#8C3F3F"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.443"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="129dp"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textViewOpis"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="371dp"
+        android:layout_height="203dp"
         android:text="Ovde ce biti opis"
-        android:textSize="18sp"
+        android:gravity="center"
         android:textColor="#000000"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewProsecnaOcena"
         app:layout_constraintTop_toBottomOf="@+id/textViewIme"
-        tools:layout_editor_absoluteX="129dp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintVertical_bias="0.247"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="13dp" />
 
     <TextView
         android:id="@+id/textViewProsecnaOcena"
-        android:layout_width="128dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="104dp"
+        android:layout_width="92dp"
+        android:layout_height="72dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="120dp"
         android:text="Ovde ce biti prosecna ocena"
-        android:textSize="24sp"
-        android:textColor="#000000"
+        android:textColor="#B15335"
+        android:textSize="30sp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="115dp"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="164dp"
+        android:layout_height="82dp"
+        android:text="Prosecna ocena: "
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewProsecnaOcena"
+        app:layout_constraintTop_toTopOf="@+id/textViewProsecnaOcena"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="47dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

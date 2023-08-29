@@ -28,8 +28,6 @@ class LoginFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: FragmentLoginBinding
     private val profileViewModel: ProfileViewModel by activityViewModels()
-    //private lateinit var bindind:LoginFragmentBinding //u fragment login se treba ukljuci na vrh neka slovca
-    // Dodato nesto
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)

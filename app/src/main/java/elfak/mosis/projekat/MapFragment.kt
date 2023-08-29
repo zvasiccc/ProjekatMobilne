@@ -185,11 +185,8 @@ class MapFragment : Fragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
-        var item=menu.findItem(R.id.action_my_places_list)
-        //item.isVisible=false
-        item=menu.findItem(R.id.action_show_map)
+        var item=menu.findItem(R.id.action_show_map)
         item.isVisible=false;
-
     }
     override fun onResume(){
         super.onResume()
