@@ -42,22 +42,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //setSupportActionBar(binding.toolbar)
+        setSupportActionBar(binding.toolbar)
         restaurantsViewModel = ViewModelProvider(this).get(RestaurantsViewModel::class.java)
         val navController = findNavController(R.id.nav_host_fragment_content_main)
          appBarConfiguration = AppBarConfiguration(navController.graph)
          setupActionBarWithNavController(navController, appBarConfiguration)
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                // Postavite selectedRestaurant na null
                 restaurantsViewModel.selectedRestaurant = null
-                // Nastavite sa standardnim tretmanom povratka
                 navController.popBackStack()
             }
         }
         onBackPressedDispatcher.addCallback(this, callback)
     }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.nav_menu, menu)
         return super.onCreateOptionsMenu(menu)
@@ -66,10 +63,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val navController = this.findNavController(R.id.nav_host_fragment_content_main)
         when (item.itemId) {
-            // R.id.nav_delete -> Toast.makeText(this, "Kliknuli ste brisanje", Toast.LENGTH_SHORT).show()
-            // R.id.nav_add -> Toast.makeText(this, "Kliknuli ste dodavanje", Toast.LENGTH_SHORT).show()
             R.id.action_show_map-> {
-                Toast.makeText(this,"Prikazujem mapu",Toast.LENGTH_SHORT).show()
                 if(navController.currentDestination?.id == R.id.profilFragment)
                    {
                     navController.navigate(R.id.action_profilFragment_to_mapFragment)
@@ -93,7 +87,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.action_new_place->
             {
-                Toast.makeText(this,"Dodajem novo mesto",Toast.LENGTH_SHORT).show()
+
                 if(navController.currentDestination?.id==R.id.profilFragment) {
                     navController.navigate((R.id.action_profilFragment_to_EditFragment))
                 }
@@ -112,7 +106,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             R.id.action_my_places_list-> {
-                Toast.makeText(this, "Prikazujem listu mesta", Toast.LENGTH_SHORT).show()
                 if(navController.currentDestination?.id == R.id.profilFragment)
                 {
                     navController.navigate(R.id.action_profilFragment_to_listaMestaFragment)
@@ -129,12 +122,11 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.action_rangiraniKorisniciFragment_to_listaMestaFragment)
                 }
             }
-            R.id.action_about->{
-                val i:Intent=Intent(this,About::class.java)
-                startActivity(i)
-            }
+//            R.id.action_about->{
+//                val i:Intent=Intent(this,About::class.java)
+//                startActivity(i)
+//            }
             R.id.action_rangirani_korisnici->{
-                Toast.makeText(this,"Prikazujem rangirane korisinke",Toast.LENGTH_SHORT).show()
                 if(navController.currentDestination?.id==R.id.profilFragment){
                    navController.navigate(R.id.action_profilFragment_to_rangiraniKorisniciFragment)
                 }
@@ -151,3 +143,4 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 }
+

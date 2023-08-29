@@ -78,15 +78,14 @@
 
     <ImageView
         android:id="@+id/slikaKorisnika"
-        android:layout_width="181dp"
-        android:layout_height="127dp"
+        android:layout_width="129dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="44dp"
         android:layout_marginBottom="28dp"
         android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.33"
+        app:layout_constraintBottom_toTopOf="@+id/buttonRegister"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextBrojTelefona"
-        app:layout_constraintBottom_toTopOf="@+id/buttonRegister"
         tools:ignore="ContentDescription" />
 
     <Button
@@ -94,10 +93,10 @@
         android:layout_width="133dp"
         android:layout_height="71dp"
         android:text="Izaberite sliku"
+        app:layout_constraintBottom_toBottomOf="@+id/slikaKorisnika"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/slikaKorisnika"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="495dp" />
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/buttonRegister"

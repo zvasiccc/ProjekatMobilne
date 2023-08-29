@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="48dp"
-    tools:context=".MapFragment">
+    tools:context=".MapFragment"
+    android:orientation="vertical">
 
     <org.osmdroid.views.MapView
         android:id="@+id/map"
         tilesource="Mapnik"
-        android:layout_width="396dp"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
         app:layout_anchor="@+id/map"
         app:layout_anchorGravity="center" />
@@ -28,24 +29,24 @@
             android:id="@+id/buttonPretraga"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pretraga"
-            android:layout_marginEnd="16dp" />
+            android:layout_marginEnd="16dp"
+            android:text="Pretraga" />
 
         <EditText
             android:id="@+id/editTextRadius"
-            android:layout_width="wrap_content"
+            android:layout_width="203dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:hint="Unesite radijus u kilometrima"
-            android:inputType="number"
-            android:layout_marginEnd="16dp" />
+            android:inputType="number" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_add"
-            android:layout_marginEnd="16dp" />
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_add" />
 
     </LinearLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

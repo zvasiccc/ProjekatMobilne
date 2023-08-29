@@ -86,10 +86,10 @@
         android:enabled="false"
         android:hint="Krajnji datum"
         android:inputType="date"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextStartDate"
         app:layout_constraintEnd_toStartOf="@+id/editTextStartDate"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="440dp" />
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView2"

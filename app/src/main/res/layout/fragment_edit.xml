@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <EditText
         android:id="@+id/editTextImeMesta"
         android:layout_width="409dp"
@@ -22,29 +20,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="1.0" />
 
-    <TextView
-        android:id="@+id/textViewOpisMesta"
-        android:layout_width="242dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="12dp"
-        android:hint="Unesite opis mesta"
-        app:layout_constraintBottom_toTopOf="@+id/editTextOpisMesta"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextImeMesta"
-        app:layout_constraintVertical_bias="0.626" />
-
     <EditText
         android:id="@+id/editTextOpisMesta"
-        android:layout_width="411dp"
-        android:layout_height="96dp"
+        android:layout_width="407dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="12dp"
         android:layout_marginBottom="68dp"
         android:ems="10"
+        android:hint="Unesite opis mesta"
         app:layout_constraintBottom_toTopOf="@+id/editTextLongituda"
+        app:layout_constraintTop_toBottomOf="@+id/editTextImeMesta"
+        app:layout_constraintVertical_bias="0.424"
         app:layout_constraintWidth_percent="1.0"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="1dp" />
+        tools:layout_editor_absoluteX="2dp" />
 
     <Button
         android:id="@+id/buttonOtkazi"
@@ -63,7 +52,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
-        android:text="Dodaj mesto"
+        android:text="Potvrdi"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonOtkazi"
         app:layout_constraintHorizontal_bias="0.5"
@@ -72,23 +61,25 @@
 
     <TextView
         android:id="@+id/textViewLongituda"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="88dp"
+        android:layout_width="118dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="76dp"
         android:text="Longituda"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewLatituda"
         app:layout_constraintEnd_toStartOf="@+id/editTextLongituda"
-        app:layout_constraintHorizontal_bias="0.232"
+        app:layout_constraintHorizontal_bias="0.29"
         app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@android:color/black"
         tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/editTextLongituda"
-        android:layout_width="211dp"
-        android:layout_height="55dp"
+        android:layout_width="217dp"
+        android:layout_height="48dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="56dp"
+
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/editTextLatituda"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,37 +87,28 @@
 
     <TextView
         android:id="@+id/textViewLatituda"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="84dp"
         android:text="Latituda"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSet"
-        app:layout_constraintEnd_toStartOf="@+id/editTextLatituda"
-        app:layout_constraintHorizontal_bias="0.286"
-        app:layout_constraintStart_toStartOf="parent"
         android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonDodajMesto"
+        app:layout_constraintEnd_toStartOf="@+id/editTextLatituda"
+        app:layout_constraintHorizontal_bias="0.342"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/editTextLatituda"
         android:layout_width="214dp"
         android:layout_height="49dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSet"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="76dp"
         android:textColor="@android:color/black"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/buttonSet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Set"
-        app:layout_constraintBottom_toTopOf="@+id/buttonDodajMesto"
+        app:layout_constraintBottom_toTopOf="@+id/buttonOtkazi"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
