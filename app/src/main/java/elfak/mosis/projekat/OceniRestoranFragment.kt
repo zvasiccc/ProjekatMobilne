@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -47,21 +48,17 @@ class OceniRestoranFragment : Fragment() {
                             val trenutniBodovi=task.result?.value as? Long?:0
                             val noviBodovi=trenutniBodovi+5
                             userRef.child("bodovi").setValue(noviBodovi)
-                            Toast.makeText(requireContext(), "Uspesno ste azurirali bodove na $noviBodovi", Toast.LENGTH_SHORT).show()
+                            binding.editTextOcena.text.clear()
+                            findNavController().navigate(R.id.action_oceniRestoranFragment_to_profilFragment)
                         } else {
-                            Toast.makeText(requireContext(), "Doslo je do greske u dodavanju bodova", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "Doslo je do greske u dodavanju bodova korisniku", Toast.LENGTH_SHORT).show()
                         }
-
                         }
-
                     }
-
                 }
             }
         super.onViewCreated(view, savedInstanceState)
         }
-
-
 
     private fun updateRestaurantInDatabase(restaurant: Restaurant) {
         val restaurantRef: DatabaseReference = restaurantsViewModel.database.getReference("Restaurants").child(restaurant.key)

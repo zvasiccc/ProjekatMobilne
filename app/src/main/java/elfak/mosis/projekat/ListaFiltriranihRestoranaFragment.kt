@@ -1,13 +1,12 @@
 package elfak.mosis.projekat
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 
@@ -43,7 +42,40 @@ class ListaFiltriranihRestoranaFragment : Fragment() {
                 restaurantsViewModel.selectedRestaurant = str
                 findNavController().navigate(R.id.action_listaFiltriranihRestoranaFragment_to_viewFragment)
             }
+        listaFiltriranihRestorana.setOnCreateContextMenuListener(object:View.OnCreateContextMenuListener{
+            override fun onCreateContextMenu(menu: ContextMenu, v:View?, menuInfo: ContextMenu.ContextMenuInfo){
+                val info=menuInfo as AdapterView.AdapterContextMenuInfo
+                val restoran:Restaurant=restaurantsViewModel.sviRestorani[info.position]
+                menu.add(0,1,1," Pregledaj restoran")
+                menu.add(0,2,2,"Izmeni restoran")
+                menu.add(0,3,3," Izbrisi ")
+                menu.add(0,4,4," Oceni restoran")
+            }
+        })
     }
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        val info=item.menuInfo as AdapterView.AdapterContextMenuInfo
+        if(item.itemId===1){
+            restaurantsViewModel.selectedRestaurant=restaurantsViewModel.filtiraniRestorani[info.position]
+            this.findNavController().navigate(R.id.action_listaFiltriranihRestoranaFragment_to_viewFragment)
+        }
+        if(item.itemId===2){
+            restaurantsViewModel.selectedRestaurant=restaurantsViewModel.filtiraniRestorani[info.position]
+            this.findNavController().navigate(R.id.action_listaFiltriranihRestoranaFragment_to_EditFragment)
+        }
+        if(item.itemId===3){
+            Toast.makeText(this.context,"Brisem izabrani restoran", Toast.LENGTH_SHORT).show()
+            val selectedRestaurant=restaurantsViewModel.filtiraniRestorani[info.position]
+            restaurantsViewModel.sviRestorani.remove(selectedRestaurant)
+            this.findNavController().navigate(R.id.action_listaFiltriranihRestoranaFragment_self)
+        }
+        if(item.itemId===4){
+            restaurantsViewModel.selectedRestaurant=restaurantsViewModel.filtiraniRestorani[info.position]
+            this.findNavController().navigate(R.id.action_listaFiltriranihRestoranaFragment_to_oceniRestoranFragment)
 
+        }
+
+        return super.onContextItemSelected(item)
+    }
 
 }

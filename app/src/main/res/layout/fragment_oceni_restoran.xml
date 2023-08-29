@@ -9,16 +9,20 @@
 
     <TextView
         android:id="@+id/textViewNazivRestorana"
-        android:layout_width="240dp"
-        android:layout_height="45dp"
+        android:layout_width="301dp"
+        android:layout_height="111dp"
         android:layout_marginTop="72dp"
+        android:gravity="center"
         android:text="Naziv: "
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/textViewOcenjenIliNe"
+        android:textColor="#8C3F3F"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/editTextOcena"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="59dp" />
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/editTextOcena"
@@ -29,29 +33,31 @@
         android:hint="Unesite ocenu za restoran"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/buttonOceni"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="45dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/buttonOceni"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="124dp"
+        android:layout_marginBottom="128dp"
         android:text="Oceni"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="152dp" />
-
-    <TextView
-        android:id="@+id/textViewOcenjenIliNe"
-        android:layout_width="254dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="104dp"
-        android:text=""
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/editTextOcena"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.286"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <!--    <TextView-->
+<!--        android:id="@+id/textViewOcenjenIliNe"-->
+<!--        android:layout_width="254dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginBottom="100dp"-->
+<!--        android:text=""-->
+<!--        android:textColor="@android:color/black"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/editTextOcena"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.624"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

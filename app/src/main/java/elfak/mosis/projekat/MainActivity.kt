@@ -88,6 +88,10 @@ class MainActivity : AppCompatActivity() {
                 {
                     navController.navigate(R.id.action_filtriranjeFragment_to_mapFragment)
                 }
+                if(navController.currentDestination?.id==R.id.listaFiltriranihRestoranaFragment)
+                {
+                    navController.navigate(R.id.action_listaFiltriranihRestoranaFragment_to_mapFragment)
+                }
             }
             R.id.action_new_place->
             {
@@ -116,6 +120,10 @@ class MainActivity : AppCompatActivity() {
                 {
                     navController.navigate(R.id.action_filtriranjeFragment_to_EditFragment)
                 }
+                if(navController.currentDestination?.id==R.id.listaFiltriranihRestoranaFragment)
+                {
+                    navController.navigate(R.id.action_listaFiltriranihRestoranaFragment_to_EditFragment)
+                }
             }
             R.id.action_my_places_list-> {
                 if(navController.currentDestination?.id == R.id.profilFragment)
@@ -141,11 +149,12 @@ class MainActivity : AppCompatActivity() {
                 {
                     navController.navigate(R.id.action_filtriranjeFragment_to_listaMestaFragment)
                 }
+                if(navController.currentDestination?.id==R.id.listaFiltriranihRestoranaFragment)
+                {
+                    navController.navigate(R.id.action_listaFiltriranihRestoranaFragment_to_listaMestaFragment)
+                }
             }
-//            R.id.action_about->{
-//                val i:Intent=Intent(this,About::class.java)
-//                startActivity(i)
-//            }
+//
             R.id.action_rangirani_korisnici->{
                 if(navController.currentDestination?.id==R.id.profilFragment){
                    navController.navigate(R.id.action_profilFragment_to_rangiraniKorisniciFragment)
@@ -169,6 +178,10 @@ class MainActivity : AppCompatActivity() {
                 if(navController.currentDestination?.id==R.id.filtriranjeFragment)
                 {
                     navController.navigate(R.id.action_filtriranjeFragment_to_rangiraniKorisniciFragment)
+                }
+                if(navController.currentDestination?.id==R.id.listaFiltriranihRestoranaFragment)
+                {
+                    navController.navigate(R.id.action_listaFiltriranihRestoranaFragment_to_rangiraniKorisniciFragment)
                 }
             }
         }
