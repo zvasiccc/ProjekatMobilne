@@ -9,60 +9,85 @@
 
     <TextView
         android:id="@+id/textViewIme"
-        android:layout_width="306dp"
-        android:layout_height="109dp"
-        android:layout_marginTop="60dp"
+        android:layout_width="309dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
         android:text="Ovde ce biti ime"
         android:textColor="#8C3F3F"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.443"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textViewOpis"
-        android:layout_width="371dp"
-        android:layout_height="203dp"
-        android:text="Ovde ce biti opis"
+        android:layout_width="387dp"
+        android:layout_height="209dp"
         android:gravity="center"
+        android:text="Ovde ce biti opis"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewProsecnaOcena"
         app:layout_constraintTop_toBottomOf="@+id/textViewIme"
-        app:layout_constraintVertical_bias="0.247"
+        app:layout_constraintVertical_bias="0.27"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="13dp" />
+        tools:layout_editor_absoluteX="12dp" />
 
     <TextView
         android:id="@+id/textViewProsecnaOcena"
-        android:layout_width="92dp"
-        android:layout_height="72dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="120dp"
-        android:text="Ovde ce biti prosecna ocena"
+        android:layout_width="94dp"
+        android:layout_height="63dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="44dp"
+        android:text=""
         android:textColor="#B15335"
         android:textSize="30sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textViewUkupanBrojOcena"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="164dp"
-        android:layout_height="82dp"
-        android:text="Prosecna ocena: "
+        android:layout_width="165dp"
+        android:layout_height="62dp"
         android:gravity="center"
+        android:text="Prosecna ocena: "
         android:textColor="#000000"
         android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="@+id/textViewProsecnaOcena"
         app:layout_constraintTop_toTopOf="@+id/textViewProsecnaOcena"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="47dp" />
+        tools:layout_editor_absoluteX="45dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="152dp"
+        android:layout_height="59dp"
+        android:text="Broj ocena:"
+        android:textColor="#000000"
+        android:textSize="26sp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewUkupanBrojOcena"
+        app:layout_constraintTop_toTopOf="@+id/textViewUkupanBrojOcena"
+        tools:layout_editor_absoluteX="57dp"
+        tools:ignore="MissingConstraints" />
+    <TextView
+        android:id="@+id/textViewUkupanBrojOcena"
+        android:layout_width="91dp"
+        android:layout_height="57dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="48dp"
+        android:text=""
+        android:gravity="center"
+        android:textColor="#B15335"
+        android:textSize="30sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

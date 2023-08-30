@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import elfak.mosis.projekat.databinding.FragmentEditBinding
 import elfak.mosis.projekat.databinding.FragmentViewBinding
@@ -26,6 +27,7 @@ class ViewFragment : Fragment() {
     ): View? {
 
         binding = FragmentViewBinding.inflate(inflater, container, false)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = null
         return binding.root
     }
 
@@ -34,6 +36,7 @@ class ViewFragment : Fragment() {
             binding.textViewIme.text = restaurantsViewModel.selectedRestaurant!!.ime
             binding.textViewOpis.text = restaurantsViewModel.selectedRestaurant!!.opis
             binding.textViewProsecnaOcena.text=restaurantsViewModel.selectedRestaurant!!.prosecnaOcena.toString()
+            binding.textViewUkupanBrojOcena.text=restaurantsViewModel.selectedRestaurant!!.brojOcena.toString()
         }
 
         super.onViewCreated(view, savedInstanceState)

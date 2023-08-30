@@ -31,7 +31,6 @@ class EditFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentEditBinding.inflate(inflater, container, false)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = null
         return binding.root
@@ -49,9 +48,10 @@ class EditFragment : Fragment() {
             editLongitude.setText(koordinateViewModel.longituda.toString())
             editLongitude.isEnabled=false
             editLatitude.isEnabled=false
+            //editName.setText("")
+            //editDesc.setText("")
         }
         binding.buttonDodajMesto.isEnabled = false
-
         editName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 binding.buttonDodajMesto.isEnabled = (editName.text.length>0)
@@ -69,11 +69,9 @@ class EditFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 binding.buttonDodajMesto.isEnabled = (editDesc.text.length>0)
             }
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 // No implementation needed
             }
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 // No implementation needed
             }
@@ -93,14 +91,13 @@ class EditFragment : Fragment() {
             val latituda = editLatitude.text.toString()
             val noviRestoran: Restaurant = Restaurant(name, opis, longituda, latituda)
             noviRestoran.idAutora=trenutnoPrijavljeniKorisnik!!.uid
-            // Konvertujemo datum u string
+            // konvertujemo datum u string
             val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
             val trenutniDatum = sdf.format(Date())
             noviRestoran.datumKreiranja = trenutniDatum
             restaurantsViewModel.sviRestorani.add(noviRestoran)
             restaurantsViewModel.adapter?.notifyDataSetChanged()
             trenutnoPrijavljeniKorisnik?.let{user->
-                //val database:FirebaseDatabase=FirebaseDatabase.getInstance()
                 val database:FirebaseDatabase=restaurantsViewModel.database
                val userRef:DatabaseReference=database.getReference("Users").child(user.uid)
                 var restaurantRef:DatabaseReference=database.getReference("Restaurants")

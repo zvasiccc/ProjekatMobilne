@@ -9,7 +9,7 @@ data class Restaurant(
                       val latituda: String="")
 {
     var key:String=""
-    var prosecnaOcena:Int=0
+    var prosecnaOcena:Double= 0.0
     var brojOcena:Int=0
     var idAutora:String=""
     var datumKreiranja: String="";

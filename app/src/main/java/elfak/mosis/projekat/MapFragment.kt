@@ -17,6 +17,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import elfak.mosis.projekat.databinding.FragmentViewBinding
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
@@ -41,7 +42,6 @@ class MapFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -64,10 +64,10 @@ class MapFragment : Fragment() {
         if(ActivityCompat.checkSelfPermission(requireActivity(),android.Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED &&
               ActivityCompat.checkSelfPermission(requireActivity(),android.Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
             requestPermissionLauncher.launch(
-                android.Manifest.permission.ACCESS_FINE_LOCATION
+                android.Manifest.permission.ACCESS_FINE_LOCATION //zovem dijalog za dobijanje dozvole
             )
         } else{
-            setMyLocationOverlay()
+            setMyLocationOverlay() //belezi figuru na mojoj lokaciji
         }
         map.controller.setZoom(15.0)
         val startPoint=GeoPoint(43.3209,21.8958)
@@ -82,14 +82,15 @@ class MapFragment : Fragment() {
         }
         fabButton=requireView().findViewById<FloatingActionButton>(R.id.fab)
         fabButton.setOnClickListener{
+
             val myLocationOverlay=map.overlays.firstOrNull{ it is MyLocationNewOverlay} as MyLocationNewOverlay?
             myLocationOverlay?.run{
                 val trenutnaLokacija=myLocation
                 val latituda=trenutnaLokacija.latitude
                 val longituda=trenutnaLokacija.longitude
-                Toast.makeText(requireContext(),"latituda=$latituda a longituda=$longituda",Toast.LENGTH_LONG).show()
                 koordinateViewModel.latituda=latituda
                 koordinateViewModel.longituda=longituda
+                restaurantsViewModel.selectedRestaurant=null
                 findNavController().navigate(R.id.action_mapFragment_to_EditFragment)
 
             }
@@ -134,7 +135,6 @@ class MapFragment : Fragment() {
         map.invalidate()
 
     }
-
     private fun izracunajUdaljenost(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
         val R = 6371 // Zemljopisni radijus u kilometrima
 
@@ -153,11 +153,10 @@ class MapFragment : Fragment() {
         var myLocationOverlay=MyLocationNewOverlay(GpsMyLocationProvider(activity),map)
         myLocationOverlay.enableMyLocation()
         myLocationOverlay.enableFollowLocation()
-        myLocationOverlay.isDrawAccuracyEnabled=true //crta krug oko markeram
+        myLocationOverlay.isDrawAccuracyEnabled=true //dozvoljava trepcuci krug
         val redMarkerDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.red_marker)
         val redMarkerBitmap = redMarkerDrawable?.toBitmap()
         myLocationOverlay.setPersonIcon(redMarkerBitmap)
-
         map.overlays.add(myLocationOverlay)
     }
     private val requestPermissionLauncher=

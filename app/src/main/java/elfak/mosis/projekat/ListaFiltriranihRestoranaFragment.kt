@@ -7,6 +7,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 
@@ -19,13 +20,13 @@ class ListaFiltriranihRestoranaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = null
         return inflater.inflate(R.layout.fragment_lista_filtriranih_restorana, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         listaFiltriranihRestorana=view.findViewById<ListView>(R.id.filtirani_restorani_list)
-
         val ad= ArrayAdapter<Restaurant>(
             view.context,
             android.R.layout.simple_list_item_1,
@@ -35,7 +36,7 @@ class ListaFiltriranihRestoranaFragment : Fragment() {
         //nakon toga on azurira prikaz i prikazuju se odgovaracuji restorani koje smo
         //sada stavili u restaurantsViewModel.filtiraniRestorani
         listaFiltriranihRestorana.adapter = ad
-        restaurantsViewModel.filterAdapter = ad
+        restaurantsViewModel.filterAdapter = ad //ovde cekamo obavestenje
         listaFiltriranihRestorana.onItemClickListener =
             AdapterView.OnItemClickListener { p0, _, p2, _ ->
                 val str: Restaurant = p0?.adapter?.getItem(p2) as Restaurant
@@ -72,7 +73,6 @@ class ListaFiltriranihRestoranaFragment : Fragment() {
         if(item.itemId===4){
             restaurantsViewModel.selectedRestaurant=restaurantsViewModel.filtiraniRestorani[info.position]
             this.findNavController().navigate(R.id.action_listaFiltriranihRestoranaFragment_to_oceniRestoranFragment)
-
         }
 
         return super.onContextItemSelected(item)

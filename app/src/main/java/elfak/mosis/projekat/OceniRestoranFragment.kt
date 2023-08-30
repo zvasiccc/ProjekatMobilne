@@ -1,11 +1,14 @@
 package elfak.mosis.projekat
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
@@ -26,19 +29,48 @@ class OceniRestoranFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentOceniRestoranBinding.inflate(inflater,container,false)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = null
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         restaurantsViewModel.selectedRestaurant?.let { selectedRestaurant ->
             binding.textViewNazivRestorana.text = selectedRestaurant.ime
+            binding.editTextOcena.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    // Pre promene teksta (ne treba nam)
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    // Tokom promene teksta (ne treba nam)
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    // Nakon promene teksta
+                    val ocenaText = s.toString()
+                    val isOcenaValid = ocenaText.isNotEmpty() && ocenaText.toIntOrNull() != null
+                    if (isOcenaValid) {
+                        val ocena = ocenaText.toInt()
+                        if (ocena in 1..10) {
+                            binding.buttonOceni.isEnabled = true
+                        } else {
+                            binding.buttonOceni.isEnabled = false
+                            binding.editTextOcena.error = "Ocena mora biti izmedju 1 i 10"
+                        }
+                    } else {
+                        binding.buttonOceni.isEnabled = false
+                        binding.editTextOcena.error = "Unesite validnu ocenu"
+                    }
+                }
+            })
+
             binding.buttonOceni.setOnClickListener {
                 var staraProsecnaOcena=selectedRestaurant.prosecnaOcena
                 val dobijenaOcena=binding.editTextOcena.text.toString().toInt()
                 val novaProsecnaOcena=((staraProsecnaOcena* selectedRestaurant.brojOcena)+dobijenaOcena)/(selectedRestaurant.brojOcena+1)
                 selectedRestaurant.prosecnaOcena=novaProsecnaOcena
                 selectedRestaurant.brojOcena++
-                updateRestaurantInDatabase(selectedRestaurant)
+                updateRestaurantInDatabase(selectedRestaurant) //moja funkcija
                 trenutnoPrijavljeniKorisnik?.let {user->
                     val database:FirebaseDatabase=restaurantsViewModel.database
                     val userRef=database.getReference("Users").child(user.uid)

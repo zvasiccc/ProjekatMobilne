@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.fragment.app.activityViewModels
 import com.google.android.gms.tasks.OnCompleteListener
@@ -31,14 +32,13 @@ import java.io.FileOutputStream
 
 class RegisterFragment : Fragment() {
 
-    private val profileViewModel: ProfileViewModel by activityViewModels()
+    //private val profileViewModel: ProfileViewModel by activityViewModels()
     private lateinit var buttonIzaberiteSliku: Button
     private var storageReference = Firebase.storage
     private lateinit var imageView: ImageView
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var database: DatabaseReference
     private var url: Uri? = null
-
     companion object {
         const val IMAGE_REQUEST_CODE = 100
         const val CAMERA_REQUEST_CODE = 200
@@ -49,6 +49,7 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = null
         return binding.root
     }
 
@@ -58,8 +59,6 @@ class RegisterFragment : Fragment() {
         storageReference = FirebaseStorage.getInstance()
 
         binding.buttonIzaberiteSliku.setOnClickListener {
-            Toast.makeText(requireContext(), "Kliknuli ste na biranje slike", Toast.LENGTH_SHORT)
-                .show()
             izaberiSliku()
         }
         binding.buttonRegister.setOnClickListener {

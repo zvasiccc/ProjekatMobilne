@@ -32,16 +32,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var loginButton: Button
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    private lateinit var navController:NavController
+    //private lateinit var navController:NavController
     private lateinit var restaurantsViewModel: RestaurantsViewModel
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        //WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.toolbar)
         restaurantsViewModel = ViewModelProvider(this).get(RestaurantsViewModel::class.java)
         val navController = findNavController(R.id.nav_host_fragment_content_main)

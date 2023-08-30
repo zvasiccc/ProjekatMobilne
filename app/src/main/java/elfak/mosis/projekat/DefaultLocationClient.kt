@@ -26,7 +26,6 @@ class DefaultLocationClient (
         return callbackFlow {
             if(!context.hasLocationPermission()){
                 throw LocationClient.LocationException("nemate dozvolu za lokaciju")
-
             }
             val locationManager=context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
             val isGpsEnabled=locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)

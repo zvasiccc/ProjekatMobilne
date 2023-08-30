@@ -24,10 +24,10 @@ import elfak.mosis.projekat.databinding.FragmentRegisterBinding
 
 class LoginFragment : Fragment() {
     private lateinit var buttonIdiNaRegistraciju: Button
-    private lateinit var buttonPrijaviSe:Button
+    //private lateinit var buttonPrijaviSe:Button
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: FragmentLoginBinding
-    private val profileViewModel: ProfileViewModel by activityViewModels()
+    //private val profileViewModel: ProfileViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -38,15 +38,12 @@ class LoginFragment : Fragment() {
         for (x in menu.children) {
             x.isVisible = false
         }
-
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //return inflater.inflate(R.layout.fragment_login, container, false)
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = null
         return binding.root
@@ -57,21 +54,7 @@ class LoginFragment : Fragment() {
         buttonIdiNaRegistraciju.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_loginFragment2_to_registerFragment)
         }
-        //buttonPrijaviSe=view.findViewById(R.id.buttonLogin)
-//        buttonPrijaviSe.setOnClickListener {
-//            val profilFragment = ProfilFragment() // Kreiranje instance fragmenta koji želite prikazati
-//            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//            transaction.replace(R.id.loginFragment, profilFragment) // Zamjena trenutnog fragmenta sa profilFragmentom
-//            transaction.addToBackStack(null) // Dodavanje trenutnog fragmenta na back stack, tako da se može vratiti prethodni fragment pritiskom na "Back" dugme
-//            transaction.commit()
-//        }
-//         fun signin(email:String,password:String){
-//            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener<AuthResult>() {
-//
-//            }
-//         }
         binding.buttonLogin.setOnClickListener{
-
                 when {
                     TextUtils.isEmpty(binding.textKorisnickoIme.text.toString()) -> {
                         Toast.makeText(
@@ -90,13 +73,12 @@ class LoginFragment : Fragment() {
                         FirebaseAuth.getInstance().signInWithEmailAndPassword(korisnickoIme,password)
                             .addOnCompleteListener{ task->
                                 if(task.isSuccessful){
-                                    Toast.makeText(requireContext(),"uspesno ste se prijavili",Toast.LENGTH_SHORT).show()
+                                    //Toast.makeText(requireContext(),"uspesno ste se prijavili",Toast.LENGTH_SHORT).show()
                                     val intent=Intent(requireContext(),MainActivity::class.java)
                                     intent.flags=Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                     intent.putExtra("user_id",FirebaseAuth.getInstance().currentUser!!.uid)
                                     intent.putExtra("email_id",korisnickoIme)
                                    // startActivity(intent)
-
                                     Navigation.findNavController(view).navigate(R.id.action_loginFragment2_to_profilFragment)
                                 }
                                 else{

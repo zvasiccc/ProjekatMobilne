@@ -23,7 +23,7 @@ import java.util.*
 
 class FiltriranjeFragment : Fragment() {
     private val restaurantsViewModel: RestaurantsViewModel by activityViewModels()
-    private val profileViewModel:ProfileViewModel by activityViewModels()
+    //private val profileViewModel:ProfileViewModel by activityViewModels()
     private lateinit var binding:FragmentFiltriranjeBinding
     private var selectedRadioButtonId: Int = -1
 
@@ -90,8 +90,6 @@ class FiltriranjeFragment : Fragment() {
                                 restaurantsViewModel.filtiraniRestorani.clear()
                                 for (userSnapshot in snapshot.children) {
                                     val user = userSnapshot.getValue(User::class.java)
-                                    //usersnapshot je cela klasa usera zajedno sa key, sadrzi razne reference i vremena
-                                    //a user su izvuceni moji atributi iz toga
                                     if (user!!.korisnickoIme == binding.editTextVrednost.text.toString()) {
                                         for (res in restaurantsViewModel.sviRestorani) {
                                             if (res.idAutora == userSnapshot.key) {

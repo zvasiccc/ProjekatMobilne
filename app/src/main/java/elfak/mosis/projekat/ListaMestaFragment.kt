@@ -18,9 +18,7 @@ import com.google.firebase.ktx.Firebase
 
 
 class ListaMestaFragment : Fragment() {
-//OVO JE SECOND FRAGMENT SA VEZBI
-
-    private lateinit var places:ArrayList<Restaurant>
+    //private lateinit var places:ArrayList<Restaurant>
     private lateinit var database:DatabaseReference
     private lateinit var placesListView: ListView
     private val restaurantsViewModel: RestaurantsViewModel by activityViewModels()
@@ -31,7 +29,6 @@ class ListaMestaFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         (requireActivity() as AppCompatActivity).supportActionBar?.title = null
         return inflater.inflate(R.layout.fragment_lista_mesta, container, false)
     }
@@ -39,8 +36,6 @@ class ListaMestaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         database=FirebaseDatabase.getInstance().getReference(NODE_RESTAURANTS)
-        //val myPlacesList: ListView =requireView().findViewById<ListView>(R.id.my_places_list)
-        //myPlacesList.adapter=ArrayAdapter<Restaurant>(view.context,android.R.layout.simple_list_item_1,restaurantsViewModel.sviRestorani)
         //prikazuje listu mojih stringova sa list view koji se prikazuju korisniku
         placesListView = view.findViewById<ListView>(R.id.my_places_list)
         placesListView.adapter =
@@ -68,7 +63,6 @@ class ListaMestaFragment : Fragment() {
         })
 
     }
-
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         val info=item.menuInfo as AdapterContextMenuInfo

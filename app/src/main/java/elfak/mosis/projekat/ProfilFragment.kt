@@ -20,13 +20,12 @@ import elfak.mosis.projekat.databinding.FragmentViewBinding
 
 class ProfilFragment : Fragment() {
     private lateinit var binding:FragmentProfilBinding
-    private val profileViewModel: ProfileViewModel by activityViewModels()
+    //private val profileViewModel: ProfileViewModel by activityViewModels()
     private val restaurantsViewModel:RestaurantsViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentProfilBinding.inflate(inflater,container,false)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = null
         return binding.root
@@ -39,7 +38,6 @@ class ProfilFragment : Fragment() {
             val userRef: DatabaseReference = database.getReference("Users").child(user.uid)
             val storage= FirebaseStorage.getInstance()
             val storageReference = storage.reference
-            //val imageReference=storageReference.child("Slike")
 
             userRef.child("urlSlike").addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -50,7 +48,6 @@ class ProfilFragment : Fragment() {
                             .into(binding.imageViewSlika)
                     }
                 }
-
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(
                         requireContext(),
