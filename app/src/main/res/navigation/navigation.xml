@@ -64,6 +64,9 @@
         <action
             android:id="@+id/action_EditFragment_to_rangiraniKorisniciFragment"
             app:destination="@id/rangiraniKorisniciFragment" />
+        <action
+            android:id="@+id/action_EditFragment_to_profilFragment"
+            app:destination="@id/profilFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
@@ -115,6 +118,9 @@
         <action
             android:id="@+id/action_viewFragment_to_rangiraniKorisniciFragment"
             app:destination="@id/rangiraniKorisniciFragment" />
+        <action
+            android:id="@+id/action_viewFragment_to_profilFragment"
+            app:destination="@id/profilFragment" />
     </fragment>
     <fragment
         android:id="@+id/listaMestaFragment"

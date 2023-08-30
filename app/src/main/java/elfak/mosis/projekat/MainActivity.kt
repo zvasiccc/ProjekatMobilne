@@ -90,6 +90,7 @@ class MainActivity : AppCompatActivity() {
                 {
                     navController.navigate(R.id.action_listaFiltriranihRestoranaFragment_to_mapFragment)
                 }
+
             }
             R.id.action_new_place->
             {
@@ -180,6 +181,40 @@ class MainActivity : AppCompatActivity() {
                 if(navController.currentDestination?.id==R.id.listaFiltriranihRestoranaFragment)
                 {
                     navController.navigate(R.id.action_listaFiltriranihRestoranaFragment_to_rangiraniKorisniciFragment)
+                }
+            }
+            R.id.action_profil->{
+                if(navController.currentDestination?.id==R.id.EditFragment)
+                {
+                    restaurantsViewModel.selectedRestaurant=null
+                    navController.navigate(R.id.action_EditFragment_to_profilFragment)
+                }
+                if(navController.currentDestination?.id==R.id.listaMestaFragment)
+                {
+                    restaurantsViewModel.selectedRestaurant=null
+                    navController.navigate(R.id.action_listaMestaFragment_to_profilFragment)
+                }
+                if(navController.currentDestination?.id==R.id.viewFragment)
+                {
+                    restaurantsViewModel.selectedRestaurant=null
+                    navController.navigate(R.id.action_viewFragment_to_profilFragment)
+                }
+                if(navController.currentDestination?.id==R.id.mapFragment)
+                {
+                    navController.navigate(R.id.action_mapFragment_to_profilFragment)
+                }
+                if(navController.currentDestination?.id==R.id.filtriranjeFragment)
+                {
+                    navController.navigate(R.id.action_filtriranjeFragment_to_profilFragment)
+                }
+                if(navController.currentDestination?.id==R.id.listaFiltriranihRestoranaFragment)
+                {
+                    restaurantsViewModel.selectedRestaurant=null
+                    navController.navigate(R.id.action_listaMestaFragment_to_profilFragment)
+                }
+                if(navController.currentDestination?.id==R.id.rangiraniKorisniciFragment)
+                {
+                    navController.navigate(R.id.action_rangiraniKorisniciFragment_to_profilFragment)
                 }
             }
         }
